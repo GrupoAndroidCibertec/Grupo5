@@ -25,6 +25,9 @@ public class DatosCita implements Parcelable {
     private String horario;
     private String fecha;
 
+    public DatosCita() {
+    }
+
     public DatosCita(String nombre, String especialidad, String doctor, String horario, String fecha) {
         this.nombre = nombre;
         this.especialidad = especialidad;

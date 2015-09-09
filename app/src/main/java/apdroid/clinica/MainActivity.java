@@ -9,6 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +25,10 @@ import java.util.ArrayList;
 
 import apdroid.clinica.adapter.DrawerItem;
 import apdroid.clinica.adapter.DrawerListAdapter;
+import apdroid.clinica.adapter.recyclerview.RVDatosCitasAdapter;
+import apdroid.clinica.adapter.spinner.SPEspecialidadAdapter;
+import apdroid.clinica.entidades.DatosCita;
+import apdroid.clinica.entidades.Especialidad;
 
 /**
  * Clase para la pantalla principal despues del Login
@@ -38,15 +44,20 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence activityTitle;
     private CharSequence itemTitle;
 
-    private TextView txtCont;
+
     private Spinner spEspecialidad;
+    private SPEspecialidadAdapter spEspecialidadAdapter;
+
+    private RecyclerView lstDatosCitas;
+    private RVDatosCitasAdapter rvDatosCitasAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         configurarMenu(savedInstanceState);
-
+        configurarControles();
         DB_Manager manager= new DB_Manager(this);
 
 
@@ -54,11 +65,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void configurarControles(){
+        spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
+
+        ArrayList<Especialidad> list = new ArrayList<>();
+        list.add(new Especialidad(1, "Medicina General"));
+        list.add(new Especialidad(2, "Pediatria"));
+        spEspecialidadAdapter = new SPEspecialidadAdapter(this, list);
+        spEspecialidad.setAdapter(spEspecialidadAdapter);
+
+        lstDatosCitas =(RecyclerView) findViewById(R.id.lstDatosCitas);
+        lstDatosCitas.setHasFixedSize(true);
+        lstDatosCitas.setLayoutManager(new LinearLayoutManager(this));
+        ArrayList<DatosCita> lstCitas = new ArrayList<>();
+        lstCitas.add(new DatosCita());
+        lstCitas.add(new DatosCita());
+        lstCitas.add(new DatosCita());
+        rvDatosCitasAdapter = new RVDatosCitasAdapter(lstCitas);
+        lstDatosCitas.setAdapter(rvDatosCitasAdapter);
+
+    }
+
     private void configurarMenu(Bundle savedInstanceState){
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        txtCont = (TextView) findViewById(R.id.txtCont);
+
 
         tagTitles = getResources().getStringArray(R.array.Tags);
         itemTitle = activityTitle = getTitle();
@@ -167,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
      * @param menuSelected
      */
     private void cargarPantalla(int menuSelected){
-        txtCont.setText(String.valueOf(menuSelected));
+
         switch (menuSelected){
             case 0: //Nueva Cita
                 cargarNuevaCita();
