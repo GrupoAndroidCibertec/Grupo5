@@ -6,7 +6,7 @@
     <dimen name="margen2">10dp</dimen>
     <dimen name="margens5">50dp</dimen>
     <dimen name="button1">50dp</dimen>
-    <dimen name="button2">30dp</dimen>
+    <dimen name="button2">25dp</dimen>
     <dimen name="fecha">200dp</dimen>
     <dimen name="tool_bar_top_padding">5dp</dimen>
 

@@ -80,18 +80,18 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
         }
     };
-    View.OnClickListener btBackOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            //Intent volver= new Intent(NuevaCitaActivity.this,MenuActivity.class);
-            //startActivity(volver);
-            finish();
-
-        }
-    };
+//    View.OnClickListener btBackOnClickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//
+//            //Intent volver= new Intent(NuevaCitaActivity.this,MenuActivity.class);
+//            //startActivity(volver);
+//            finish();
+//
+//        }
+//    };
     //private EditText etFecha;
-    private TextView tvFecha;
+    private TextView tvFecha, tvUser;
     private ImageButton btCalendar;
     private Spinner spEspecialidad, spDoctor, spHorario;
     private ArrayList<DatosCita> datosCitas;
@@ -107,6 +107,15 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
         }
     };
+
+    View.OnClickListener tvFechaOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            setFecha();
+        }
+    };
+
+
     View.OnClickListener btCalendarOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -126,27 +135,54 @@ public class NuevaCitaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nuevacita);
 
         //etFecha=(EditText)findViewById(R.id.etFecha);
+        tvUser= (TextView) findViewById(R.id.tvUser);
         tvFecha = (TextView) findViewById(R.id.etFecha);
         btCalendar = (ImageButton) findViewById(R.id.btCal);
         spEspecialidad = (Spinner) findViewById(R.id.spEspecialidad);
         spDoctor = (Spinner) findViewById(R.id.spDoctor);
         spHorario = (Spinner) findViewById(R.id.spHorario);
-        btBack = (Button) findViewById(R.id.btBack);
+        //btBack = (Button) findViewById(R.id.btBack);
 
 
         spEspecialidad.setOnItemSelectedListener(spEspOnItemSelectedListener);
         spDoctor.setOnItemSelectedListener(spDoctorOnItemSelectedListener);
         btCalendar.setOnClickListener(btCalendarOnClickListener);
-        btBack.setOnClickListener(btBackOnClickListener);
+        //btBack.setOnClickListener(btBackOnClickListener);
+        tvFecha.setOnClickListener(tvFechaOnClickListener);
+
 
         formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 
-        aaEspecialidad = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opEspecialidad);
-        aaDoctor = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opDoctor);
-        aaHorario = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opHorario);
-        aaClear = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opClear);
+        aaEspecialidad = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opEspecialidad);
+        aaDoctor = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, opDoctor);
+        aaHorario = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, opHorario);
+        aaClear = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, opClear);
 
         spEspecialidad.setAdapter(aaEspecialidad);
+
+
+
+        int usuario = this.getIntent().getIntExtra("user",0);
+
+        switch (usuario) {
+            case 1:
+                tvUser.setText("Ángelo Verástegui");
+                break;
+            case 2:
+                tvUser.setText("Edinson Vasquez");
+                break;
+            case 3:
+                tvUser.setText("Antonio Merejildo");
+                break;
+            default:
+                tvUser.setText("Default");
+                break;
+
+        }
+
+
+
+
 
     }
 

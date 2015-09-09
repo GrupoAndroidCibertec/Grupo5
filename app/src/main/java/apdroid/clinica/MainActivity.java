@@ -2,6 +2,7 @@ package apdroid.clinica;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.PersistableBundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         configurarMenu(savedInstanceState);
 
+        DB_Manager manager= new DB_Manager(this);
+
+
+
 
     }
 
@@ -72,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         items.add(new DrawerItem(tagTitles[0], R.drawable.ic_nuevacita));
         items.add(new DrawerItem(tagTitles[1], R.drawable.ic_micuenta));
         items.add(new DrawerItem(tagTitles[2], R.drawable.ic_locales));
+        items.add(new DrawerItem(tagTitles[3], R.drawable.ic_locales));
 
         //Creamos adaptador y seteamos al Drawerlist
         drawerList.setAdapter(new DrawerListAdapter(this, items));
@@ -171,15 +177,30 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 cargarNuestrosLocales();
+                break;
+            case 3:
+                salir();
+                break;
 
         }
+    }
+
+    private void salir() {
+        getSharedPreferences(getPackageName(), MODE_PRIVATE).edit().clear().commit();
+
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     /**
      * Carga la pantalla de nueva cita
      */
     private void cargarNuevaCita(){
+        int usuario = this.getIntent().getIntExtra("user",0);
         Intent intent = new Intent(MainActivity.this, NuevaCitaActivity.class);
+        intent.putExtra("user",usuario);
         startActivity(intent);
     }
 
@@ -197,5 +218,12 @@ public class MainActivity extends AppCompatActivity {
     private void cargarNuestrosLocales(){
 
     }
+
+
+
+
+
+
+
 
 }

@@ -28,15 +28,25 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        int usuario = this.getIntent().getIntExtra("user", 0);
-
         tvUser = (TextView) findViewById(R.id.tvUser);
 
+        int usuario = this.getIntent().getIntExtra("user", 0);
+
+
+        //String usuario = this.getIntent().getStringExtra();
+        /*
         switch (usuario) {
-            case 1:
-                tvUser.setText("Angelo Paulo Verástegui Ponce");
+            case "angelo":
+                tvUser.setText("Ángelo Paulo Verástegui Ponce");
+                break;
+            case "edinson":
+                tvUser.setText("Edinson EFG");
+                break;
+            case "antonio":
+                tvUser.setText("Antonio ABC");
                 break;
         }
+        */
 
 
         btNuevaCita = (Button) findViewById(R.id.btNuevaCita);

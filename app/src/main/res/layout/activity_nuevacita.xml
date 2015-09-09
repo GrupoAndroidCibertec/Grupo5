@@ -6,23 +6,28 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:elevation="4dp"
+        android:paddingTop="@dimen/tool_bar_top_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8FBC8F"
+        android:background="@color/ColorPrimary"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back" />
+        <!--<Button-->
+            <!--android:id="@+id/btBack"-->
+            <!--style="@style/btClinica"-->
+            <!--android:padding="10dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Back" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:gravity="center_horizontal"
-            android:text="SISTEMA DE CITAS"
+            android:textColor="#FFFFFF"
+            android:text="@string/title_activity_main"
             android:textSize="22dp"
             android:typeface="serif" />
 
@@ -51,9 +56,9 @@
 
             <Spinner
                 android:id="@+id/spEspecialidad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/spNA"
                 android:layout_marginLeft="@dimen/margens5"
+                
                 android:textStyle="bold"></Spinner>
 
 
@@ -79,10 +84,11 @@
 
                 <TextView
                     android:id="@+id/etFecha"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:paddingTop="8dp"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:background="#FFFFFF"
+                    android:textSize="18sp"
                     android:text="   " />
 
 
@@ -113,8 +119,7 @@
 
             <Spinner
                 android:id="@+id/spDoctor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/spNA"
                 android:layout_marginLeft="@dimen/margens5"></Spinner>
 
 
@@ -135,8 +140,7 @@
 
             <Spinner
                 android:id="@+id/spHorario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/spNA"
                 android:layout_marginLeft="@dimen/margens5"></Spinner>
 
         </LinearLayout>
@@ -150,6 +154,7 @@
 
             <Button
                 android:id="@+id/btReservCita"
+                style="@style/btClinica"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
