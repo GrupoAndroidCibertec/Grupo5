@@ -12,16 +12,19 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvNombreEspecialidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Odontologia" />
 
         <TextView
+            android:id="@+id/tvNombreDoctor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre de doctor" />
 
         <TextView
+            android:id="@+id/tvFechaCita"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="18-07-2015" />
@@ -37,6 +40,7 @@
         android:layout_margin="5dp">
 
         <TextView
+            android:id="@+id/tvEstadoCita"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"

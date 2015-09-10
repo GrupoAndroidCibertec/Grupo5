@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import apdroid.clinica.adapter.recyclerview.RVDatosCitasAdapter;
 import apdroid.clinica.adapter.spinner.SPEspecialidadAdapter;
 import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.entidades.Especialidad;
+import apdroid.clinica.service.ClinicaService;
 
 /**
  * Clase para la pantalla principal despues del Login
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView lstDatosCitas;
     private RVDatosCitasAdapter rvDatosCitasAdapter;
 
+    private ClinicaService clinicaService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         configurarMenu(savedInstanceState);
         configurarControles();
         DB_Manager manager= new DB_Manager(this);
+
+        clinicaService = new ClinicaService();
 
 
 
@@ -71,19 +77,36 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Especialidad> list = new ArrayList<>();
         list.add(new Especialidad(1, "Medicina General"));
         list.add(new Especialidad(2, "Pediatria"));
+        list.add(new Especialidad(3, "Odontologia"));
         spEspecialidadAdapter = new SPEspecialidadAdapter(this, list);
         spEspecialidad.setAdapter(spEspecialidadAdapter);
+        spEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filtrarCitas((Especialidad) parent.getItemAtPosition(position), null);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         lstDatosCitas =(RecyclerView) findViewById(R.id.lstDatosCitas);
         lstDatosCitas.setHasFixedSize(true);
         lstDatosCitas.setLayoutManager(new LinearLayoutManager(this));
-        ArrayList<DatosCita> lstCitas = new ArrayList<>();
-        lstCitas.add(new DatosCita());
-        lstCitas.add(new DatosCita());
-        lstCitas.add(new DatosCita());
-        rvDatosCitasAdapter = new RVDatosCitasAdapter(lstCitas);
+        rvDatosCitasAdapter = new RVDatosCitasAdapter(new ArrayList<DatosCita>());
         lstDatosCitas.setAdapter(rvDatosCitasAdapter);
 
+    }
+
+    private void filtrarCitas(Especialidad especialidad, String fecha){
+        ArrayList<DatosCita> listaCitas = null;
+        DatosCita datosCita = new DatosCita();
+        datosCita.setEspecialidad(especialidad!=null ? especialidad.getNombre(): null);
+        datosCita.setFecha(fecha);
+        listaCitas = clinicaService.filtrarCitas(datosCita);
+        rvDatosCitasAdapter.setNewSource(listaCitas);
     }
 
     private void configurarMenu(Bundle savedInstanceState){
@@ -186,7 +209,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Seleccion de menu
+     * @param position
+     */
     private void selectItem(int position){
         cargarPantalla(position);
 
