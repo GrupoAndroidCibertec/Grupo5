@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:elevation="4dp"
+        android:paddingTop="@dimen/tool_bar_top_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ColorPrimary"
+        android:orientation="horizontal">
+
+        <!--<Button-->
+            <!--android:id="@+id/btBack"-->
+            <!--style="@style/btClinica"-->
+            <!--android:padding="10dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Back" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:text="@string/title_activity_main"
+            android:textSize="22dp"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="7"
+        android:background="#F5F5DC"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F5F5DC"
+                android:text="Especialidad:" />
+
+            <Spinner
+                android:id="@+id/spEspecialidad"
+                style="@style/spNA"
+                android:layout_marginLeft="@dimen/margens5"
+                
+                android:textStyle="bold"></Spinner>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:text="Fecha:" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button2"
+                android:layout_marginLeft="@dimen/margens5"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/etFecha"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:background="#FFFFFF"
+                    android:textSize="18sp"
+                    android:text="   " />
+
+
+                <ImageButton
+                    android:id="@+id/btCal"
+                    android:layout_width="@dimen/button2"
+                    android:background="@drawable/btcalendar"
+                    android:layout_height="match_parent"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:text="Doctor:" />
+
+            <Spinner
+                android:id="@+id/spDoctor"
+                style="@style/spNA"
+                android:layout_marginLeft="@dimen/margens5"></Spinner>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F5F5DC"
+                android:inputType="none"
+                android:text="Horario:" />
+
+            <Spinner
+                android:id="@+id/spHorario"
+                style="@style/spNA"
+                android:layout_marginLeft="@dimen/margens5"></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llref5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btReservCita"
+                style="@style/btClinica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="25dp"
+                android:padding="10dp"
+                android:text="Reservar Cita"
+
+                android:textSize="18dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#8FBC8F">
+
+
+        <TextView
+            android:id="@+id/tvUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0000"
+            android:gravity="center"
+            android:text="USUARIO" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
