@@ -1,6 +1,8 @@
 package apdroid.clinica;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
     String[] opClear = new String[0];
     Calendar calendario = Calendar.getInstance();
 
+    //<editor-fold desc="Spinner Especialidad">
     AdapterView.OnItemSelectedListener spEspOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -55,6 +59,9 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
         }
     };
+    //</editor-fold>
+
+    //<editor-fold desc="Spinner Doctor">
     AdapterView.OnItemSelectedListener spDoctorOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -80,23 +87,20 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
         }
     };
-//    View.OnClickListener btBackOnClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//
-//            //Intent volver= new Intent(NuevaCitaActivity.this,MenuActivity.class);
-//            //startActivity(volver);
-//            finish();
-//
-//        }
-//    };
+    //</editor-fold>
+
+
     //private EditText etFecha;
     private TextView tvFecha, tvUser;
     private ImageButton btCalendar;
     private Spinner spEspecialidad, spDoctor, spHorario;
     private ArrayList<DatosCita> datosCitas;
+    private Button btReservCita;
     //DateFormat formatoFecha=DateFormat.getDateInstance();
+
+    //<editor-fold desc="DatePicker">
     private SimpleDateFormat formatoFecha;
+
     DatePickerDialog.OnDateSetListener dpFechaOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -124,72 +128,6 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
         }
     };
-    private Button btBack;
-
-    //--------------------------------------------------------------------------------------------
-    //  BUTTON BACK ------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevacita);
-
-        //etFecha=(EditText)findViewById(R.id.etFecha);
-        tvUser= (TextView) findViewById(R.id.tvUser);
-        tvFecha = (TextView) findViewById(R.id.etFecha);
-        btCalendar = (ImageButton) findViewById(R.id.btCal);
-        spEspecialidad = (Spinner) findViewById(R.id.spEspecialidad);
-        spDoctor = (Spinner) findViewById(R.id.spDoctor);
-        spHorario = (Spinner) findViewById(R.id.spHorario);
-        //btBack = (Button) findViewById(R.id.btBack);
-
-
-        spEspecialidad.setOnItemSelectedListener(spEspOnItemSelectedListener);
-        spDoctor.setOnItemSelectedListener(spDoctorOnItemSelectedListener);
-        btCalendar.setOnClickListener(btCalendarOnClickListener);
-        //btBack.setOnClickListener(btBackOnClickListener);
-        tvFecha.setOnClickListener(tvFechaOnClickListener);
-
-
-        formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-
-        aaEspecialidad = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opEspecialidad);
-        aaDoctor = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, opDoctor);
-        aaHorario = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, opHorario);
-        aaClear = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, opClear);
-
-        spEspecialidad.setAdapter(aaEspecialidad);
-
-
-
-        int usuario = this.getIntent().getIntExtra("user",0);
-
-        switch (usuario) {
-            case 1:
-                tvUser.setText("Ángelo Verástegui");
-                break;
-            case 2:
-                tvUser.setText("Edinson Vasquez");
-                break;
-            case 3:
-                tvUser.setText("Antonio Merejildo");
-                break;
-            default:
-                tvUser.setText("Default");
-                break;
-
-        }
-
-
-
-
-
-    }
-
-
-    //*******************************************************************************************
-    //  BUTTON BACK *****************************************************************************
-    //*******************************************************************************************
 
     //--------------------------------------------------------------------------------------------
     //  CALENDAR   -------------------------------------------------------------------------------
@@ -208,5 +146,67 @@ public class NuevaCitaActivity extends AppCompatActivity {
     //--------------------------------------------------------------------------------------------
     //  CALENDAR   -------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------------------
+    //</editor-fold>
+
+
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_nuevacita);
+
+        //etFecha=(EditText)findViewById(R.id.etFecha);
+        tvUser= (TextView) findViewById(R.id.tvUser);
+        tvFecha = (TextView) findViewById(R.id.etFecha);
+        btCalendar = (ImageButton) findViewById(R.id.btCal);
+        spEspecialidad = (Spinner) findViewById(R.id.spEspecialidad);
+        spDoctor = (Spinner) findViewById(R.id.spDoctor);
+        spHorario = (Spinner) findViewById(R.id.spHorario);
+        btReservCita=(Button)findViewById(R.id.btReservCita);
+
+
+        spEspecialidad.setOnItemSelectedListener(spEspOnItemSelectedListener);
+        spDoctor.setOnItemSelectedListener(spDoctorOnItemSelectedListener);
+        btCalendar.setOnClickListener(btCalendarOnClickListener);
+        tvFecha.setOnClickListener(tvFechaOnClickListener);
+        btReservCita.setOnClickListener(btReservCitaOnClickListener);
+
+
+        formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+
+        aaEspecialidad = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opEspecialidad);
+        aaDoctor = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, opDoctor);
+        aaHorario = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, opHorario);
+        aaClear = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, opClear);
+
+        spEspecialidad.setAdapter(aaEspecialidad);
+
+
+
+        String nuser = this.getIntent().getStringExtra("npersona");
+        tvUser.setText(nuser);
+
+
+    }
+
+    View.OnClickListener btReservCitaOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Intent resultIntent=new Intent();
+            DatosCita data=new DatosCita();
+            data.setEspecialidad(spEspecialidad.getSelectedItem().toString());
+            data.setNombre(tvUser.getText().toString());
+            data.setFecha(tvFecha.getText().toString());
+            data.setDoctor(spDoctor.getSelectedItem().toString());
+            data.setHorario(spHorario.getSelectedItem().toString());
+            resultIntent.putExtra("data", data);
+            setResult(RESULT_OK, resultIntent);
+            Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+            finish();
+
+
+        }
+    };
+
 
 }

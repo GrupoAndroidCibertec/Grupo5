@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -255,12 +256,42 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Carga la pantalla de nueva cita
      */
+
+    private int Req_Code=22;
+
     private void cargarNuevaCita(){
-        int usuario = this.getIntent().getIntExtra("user",0);
+        //int usuario = this.getIntent().getIntExtra("user",0);
+        String nusuario=this.getIntent().getStringExtra("npersona");
+
+
         Intent intent = new Intent(MainActivity.this, NuevaCitaActivity.class);
-        intent.putExtra("user",usuario);
-        startActivity(intent);
+        //intent.putExtra("user",usuario);
+        intent.putExtra("npersona",nusuario);
+
+        startActivityForResult(intent, Req_Code); // declarar ... private int Req_Code=22;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==Req_Code){
+            if(resultCode==RESULT_OK){
+                DatosCita dataOAR=data.getParcelableExtra("data");
+                Toast.makeText(this,dataOAR.getEspecialidad().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(this,dataOAR.getFecha().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(this,dataOAR.getDoctor().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(this,dataOAR.getHorario().toString(),Toast.LENGTH_LONG).show();
+
+            }else if(resultCode==RESULT_CANCELED){
+                Toast.makeText(this,"Canceled",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+
+    }
+
 
 
     /**

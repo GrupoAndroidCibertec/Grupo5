@@ -13,12 +13,14 @@ import apdroid.clinica.entidades.DatosCita;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private SharedPreferences sp;
+    public SharedPreferences sp;
     private EditText etUser, etPass;
     private Button btIngresar;
     private final String ARG_USER="arg_user";
     private final String ARG_PASS="arg_pass";
     private final String ARG_NUSER="arg_pass";
+    private final String ARG_NOMBRE="arg_nombre";
+
 
 
 
@@ -39,16 +41,22 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 user=user.toLowerCase();
+                String nya="";
 
                 int nUser=0;
+
                 if (user.equals("angelo")){
                     nUser=1;
+                    nya="Angelo Verastegui";
                 }
                 if (user.equals("edinson")){
                     nUser=2;
+                    nya="Edinson EFG";
+
                 }
                 if (user.equals("antonio")){
                     nUser=3;
+                    nya="Antonio ABC";
                 }
 
 
@@ -57,17 +65,22 @@ public class LoginActivity extends AppCompatActivity {
                 spe.putString(ARG_USER, user);
                 spe.putString(ARG_PASS, pass);
                 spe.putInt(ARG_NUSER, nUser);
+                spe.putString(ARG_NOMBRE, nya);
                 spe.commit();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-                intent.putExtra("user",nUser);
+                //DatosCita datosPersona = new DatosCita();
+                //datosPersona.setNombre(sp.getString(ARG_NOMBRE,""));
+                //intent.putExtra("user", nUser);
+                //intent.putExtra("datosper",datosPersona);
+                intent.putExtra("npersona",nya);
                 startActivity(intent);
                 finish();
 
 
             }else{
                 Toast.makeText(getApplicationContext(), "Ups !!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Clave o Usuario Incorrecto", Toast.LENGTH_LONG).show();
             }
 
 
@@ -95,7 +108,11 @@ public class LoginActivity extends AppCompatActivity {
             )
         {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            intent.putExtra("user",sp.getInt(ARG_NUSER,0));
+            //DatosCita datosPersona = new DatosCita();
+            //datosPersona.setNombre(sp.getString(ARG_NOMBRE,""));
+            intent.putExtra("npersona", sp.getString(ARG_NOMBRE,"Default"));
+            //intent.putExtra("user",sp.getInt(ARG_NUSER,0));
+            //intent.putExtra("datosper",datosPersona);
             startActivity(intent);
             finish();
         }
