@@ -23,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import apdroid.clinica.adapter.DrawerItem;
@@ -61,12 +63,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DB_Helper manager= new DB_Helper(this);
+        try {
+            manager.createDataBase();
+            manager.openDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        clinicaService = ClinicaService.getSingleton();
+
         configurarMenu(savedInstanceState);
         configurarControles();
-        DB_Manager manager= new DB_Manager(this);
-
-        clinicaService = new ClinicaService();
-
 
 
 
@@ -75,11 +84,8 @@ public class MainActivity extends AppCompatActivity {
     private void configurarControles(){
         spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
 
-        ArrayList<Especialidad> list = new ArrayList<>();
-        list.add(new Especialidad(1, "Medicina General"));
-        list.add(new Especialidad(2, "Pediatria"));
-        list.add(new Especialidad(3, "Odontologia"));
-        spEspecialidadAdapter = new SPEspecialidadAdapter(this, list);
+        ArrayList<Especialidad> listEspec = clinicaService.listarEspecialidades();
+        spEspecialidadAdapter = new SPEspecialidadAdapter(this, listEspec);
         spEspecialidad.setAdapter(spEspecialidadAdapter);
         spEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

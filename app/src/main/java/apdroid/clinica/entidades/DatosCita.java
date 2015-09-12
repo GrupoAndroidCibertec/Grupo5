@@ -19,6 +19,8 @@ public class DatosCita implements Parcelable {
             return new DatosCita[size];
         }
     };
+
+    private int idCita;
     private String nombre;
     private String especialidad;
     private String doctor;
@@ -84,6 +86,14 @@ public class DatosCita implements Parcelable {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public int getIdCita() {
+        return idCita;
+    }
+
+    public void setIdCita(int idCita) {
+        this.idCita = idCita;
     }
 
     @Override
