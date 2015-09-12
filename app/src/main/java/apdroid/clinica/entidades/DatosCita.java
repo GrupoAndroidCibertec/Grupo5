@@ -21,39 +21,43 @@ public class DatosCita implements Parcelable {
     };
 
     private int idCita;
-    private String nombre;
+    private int idDoctor;
+    private int idPaciente;
+
     private String especialidad;
     private String doctor;
-    private String horario;
+    private String hora;
     private String fecha;
 
     public DatosCita() {
     }
 
-    public DatosCita(String nombre, String especialidad, String doctor, String horario, String fecha) {
-        this.nombre = nombre;
+    public DatosCita(String nombre, String especialidad, String doctor, String hora, String fecha) {
+        //this.nombre = nombre;
         this.especialidad = especialidad;
         this.doctor = doctor;
-        this.horario = horario;
+        this.hora = hora;
         this.fecha = fecha;
     }
 
     protected DatosCita(Parcel in) {
-        nombre = in.readString();
+        //nombre = in.readString();
         especialidad = in.readString();
         doctor = in.readString();
-        horario = in.readString();
+        hora = in.readString();
         fecha = in.readString();
     }
 
     //<editor-fold desc="Getters and Setters">
-    public String getNombre() {
-        return nombre;
-    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+
+//    public String getNombre() {
+//        return nombre;
+//    }
+//
+//    public void setNombre(String nombre) {
+//        this.nombre = nombre;
+//    }
 
     public String getEspecialidad() {
         return especialidad;
@@ -71,12 +75,12 @@ public class DatosCita implements Parcelable {
         this.doctor = doctor;
     }
 
-    public String getHorario() {
-        return horario;
+    public String getHora() {
+        return hora;
     }
 
-    public void setHorario(String horario) {
-        this.horario = horario;
+    public void setHora(String hora) {
+        this.hora = hora;
     }
     //</editor-fold>
 
@@ -96,6 +100,22 @@ public class DatosCita implements Parcelable {
         this.idCita = idCita;
     }
 
+    public int getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(int idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -103,10 +123,10 @@ public class DatosCita implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nombre);
+        //dest.writeString(nombre);
         dest.writeString(especialidad);
         dest.writeString(doctor);
-        dest.writeString(horario);
+        dest.writeString(hora);
         dest.writeString(fecha);
     }
 }

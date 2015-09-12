@@ -31,7 +31,7 @@ public class RVDatosCitasAdapter extends RecyclerView.Adapter<RVDatosCitasAdapte
     public void onBindViewHolder(RVDatosCitasAdapterViewHolder lvDatosCitasAdapterViewHolder, int position) {
         DatosCita datosCita = lstDatosCitas.get(position);
         lvDatosCitasAdapterViewHolder.tvNombreEspecialidad.setText(datosCita.getEspecialidad());
-        lvDatosCitasAdapterViewHolder.tvNombreDoctor.setText(datosCita.getNombre());
+        lvDatosCitasAdapterViewHolder.tvNombreDoctor.setText(datosCita.getDoctor());
         lvDatosCitasAdapterViewHolder.tvFechaCita.setText(datosCita.getFecha());
         lvDatosCitasAdapterViewHolder.tvEstadoCita.setText("PROGRAMADO");
 

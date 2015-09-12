@@ -2,7 +2,6 @@ package apdroid.clinica;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -195,10 +194,10 @@ public class NuevaCitaActivity extends AppCompatActivity {
             Intent resultIntent=new Intent();
             DatosCita data=new DatosCita();
             data.setEspecialidad(spEspecialidad.getSelectedItem().toString());
-            data.setNombre(tvUser.getText().toString());
+            data.setDoctor(tvUser.getText().toString());
             data.setFecha(tvFecha.getText().toString());
             data.setDoctor(spDoctor.getSelectedItem().toString());
-            data.setHorario(spHorario.getSelectedItem().toString());
+            data.setHora(spHorario.getSelectedItem().toString());
             resultIntent.putExtra("data", data);
             setResult(RESULT_OK, resultIntent);
             Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();

@@ -2,8 +2,6 @@ package apdroid.clinica;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.PersistableBundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,15 +10,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -85,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
 
         ArrayList<Especialidad> listEspec = clinicaService.listarEspecialidades();
+        listEspec.add(0, new Especialidad(-1, "<Seleccione Especialidad>"));
         spEspecialidadAdapter = new SPEspecialidadAdapter(this, listEspec);
         spEspecialidad.setAdapter(spEspecialidadAdapter);
         spEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private void filtrarCitas(Especialidad especialidad, String fecha){
         ArrayList<DatosCita> listaCitas = null;
         DatosCita datosCita = new DatosCita();
-        datosCita.setEspecialidad(especialidad!=null ? especialidad.getNombre(): null);
+        datosCita.setEspecialidad(especialidad==null || especialidad.getIdEspecialidad()==-1? "": especialidad.getNombre());
         datosCita.setFecha(fecha);
         listaCitas = clinicaService.filtrarCitas(datosCita);
         rvDatosCitasAdapter.setNewSource(listaCitas);
@@ -287,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,dataOAR.getEspecialidad().toString(),Toast.LENGTH_LONG).show();
                 Toast.makeText(this,dataOAR.getFecha().toString(),Toast.LENGTH_LONG).show();
                 Toast.makeText(this,dataOAR.getDoctor().toString(),Toast.LENGTH_LONG).show();
-                Toast.makeText(this,dataOAR.getHorario().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(this,dataOAR.getHora().toString(),Toast.LENGTH_LONG).show();
 
             }else if(resultCode==RESULT_CANCELED){
                 Toast.makeText(this,"Canceled",Toast.LENGTH_LONG).show();
