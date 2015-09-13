@@ -1,5 +1,6 @@
 package apdroid.clinica.dao;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class CitasDao {
     private final String sql_listAll = "select id_cita, id_doctor, id_paciente, (select nombre_espec from especialidad where id_especialidad = d.id_especialidad) nom_especialidad, d.nombre || ' ' || d.apellido nom_doctor, fecha, hora , estado , detalleConsulta , nombrelocal from cita c inner join doctor d on c.id_doctor=d.id_doc inner join local l on l.idlocal = d.idlocal ";
 
     private final String orderBy = "order by date(fecha) desc";
+
+    private final String updateAnulacion = "update cita   set   estado = 'ANULADA' WHERE  ID_CITA = ?"  ;
+
 
     private CitasDao(){
 
@@ -87,6 +91,20 @@ public class CitasDao {
 
 
         return lstPersona;
+    }
+
+    public boolean actualizarCita(DatosCita datosCita){
+        try {
+            ContentValues cv = new ContentValues();
+            cv.put("estado", "ANULADA");
+
+            DB_Helper.getMyDataBase().update("cita", cv, "id_cita = ?", new String[]{String.valueOf(datosCita.getIdCita())});
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        return true ;
     }
 
 

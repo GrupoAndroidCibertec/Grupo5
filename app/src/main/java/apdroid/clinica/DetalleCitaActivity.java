@@ -1,8 +1,10 @@
 package apdroid.clinica;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import apdroid.clinica.entidades.DatosCita;
+import apdroid.clinica.service.ClinicaService;
 import apdroid.clinica.util.Constantes;
 
 
@@ -20,6 +23,8 @@ public class DetalleCitaActivity extends AppCompatActivity {
     private DatosCita datosCita = null;
     private int position = -1;
 
+    private ClinicaService clinicaService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class DetalleCitaActivity extends AppCompatActivity {
     }
 
     private void configurarControles(){
+        clinicaService = ClinicaService.getSingleton();
         tvNombreEspecialidad = (TextView) findViewById(R.id.tvNombreEspecialidad);
         tv_fecha_hora = (TextView) findViewById(R.id.tv_fecha_hora);
         tvNombreDoctor = (TextView) findViewById(R.id.tvNombreDoctor);
@@ -77,8 +83,21 @@ public class DetalleCitaActivity extends AppCompatActivity {
     View.OnClickListener btanularcitaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            new AlertDialog.Builder(DetalleCitaActivity.this).setTitle("Confirmar").setMessage("¿Esta usted seguro de anular la cita?").setNegativeButton("Cancelar", alertAcceptCancelCancelOnClickListener).setPositiveButton("Aceptar", alertAcceptCancelAcceptOnClickListener).setCancelable(false).show();
 
+        }
+    };
+    DialogInterface.OnClickListener alertAcceptCancelAcceptOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            clinicaService.actualizarCita(datosCita) ;
+        }
+    };
 
+    DialogInterface.OnClickListener alertAcceptCancelCancelOnClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            dialogInterface.dismiss();
         }
     };
 

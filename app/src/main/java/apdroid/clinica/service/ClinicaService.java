@@ -52,4 +52,10 @@ public class ClinicaService {
 
         return lstCitas;
     }
+
+    public boolean actualizarCita(DatosCita datosCita){
+        citasDao.actualizarCita(datosCita)  ;
+        return true ;
+
+    }
 }
