@@ -90,7 +90,7 @@
             android:textStyle="bold"
             />
 
-
+        <!--style="@style/btClinica"-->
 
     </LinearLayout>
 

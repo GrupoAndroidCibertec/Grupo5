@@ -12,7 +12,8 @@
         android:layout_toRightOf="@id/icon"
         android:text="Item"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/ColorItemMenu"/>
+        android:textColor="@color/ColorItemMenu"
+        />
 
     <ImageView
         android:id="@+id/icon"
