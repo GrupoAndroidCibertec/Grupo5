@@ -21,7 +21,22 @@
     <string name="drawer_open">Abrir navigation drawer</string>
     <string name="drawer_close">Cerrar navigation drawer</string>
     <string name="headlines">Encabezados de</string>
+    <string name="title_activity_detalle_cita">Detalle de la Cita</string>
 
+
+    <string name="text_especialidad">Especialidad</string>
+    <string name="text_fecha_hora">Fecha y Hora</string>
+    <string name="text_doctor">Doctor</string>
+    <string name="text_local">Local</string>
+    <string name="text_detalle">Detalle de la  Consulta</string>
+    <string name="text_nombres">Nombres</string>
+    <string name="text_apellidos">Apellidos</string>
+    <string name="text_dni">DNI</string>
+    <string name="text_correo">Correo</string>
+    <string name="text_idioma">Idioma</string>
+    <string name="text_estilo">Estilos</string>
+    <string name="text_actualizar_usuario">Actualizar</string>
+    <string name="title_activity_paciente">PacienteActivity</string>
 
 
 

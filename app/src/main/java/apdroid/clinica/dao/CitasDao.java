@@ -14,7 +14,7 @@ import apdroid.clinica.entidades.DatosCita;
 public class CitasDao {
 
 
-    private final String sql_listAll = "select id_cita, id_doctor, id_paciente, (select nombre_espec from especialidad where id_especialidad = d.id_especialidad) nom_especialidad, d.nombre || ' ' || d.apellido nom_doctor, fecha, hora from cita c inner join doctor d on c.id_doctor=d.id_doc order by date(fecha) desc";
+    private final String sql_listAll = "select id_cita, id_doctor, id_paciente, (select nombre_espec from especialidad where id_especialidad = d.id_especialidad) nom_especialidad, d.nombre || ' ' || d.apellido nom_doctor, fecha, hora , estado , detalleConsulta , nombrelocal from cita c inner join doctor d on c.id_doctor=d.id_doc inner join local l on l.idlocal = d.idlocal order by date(fecha) desc";
 
 
     public ArrayList<DatosCita> listCitas() {
@@ -36,6 +36,10 @@ public class CitasDao {
                     cita.setDoctor(cursor.isNull(cursor.getColumnIndex("nom_doctor")) ? "" : cursor.getString(cursor.getColumnIndex("nom_doctor")));
                     cita.setFecha(cursor.isNull(cursor.getColumnIndex("fecha")) ? "" : cursor.getString(cursor.getColumnIndex("fecha")));
                     cita.setHora(cursor.isNull(cursor.getColumnIndex("hora")) ? "" : cursor.getString(cursor.getColumnIndex("hora")));
+                    cita.setEstado(cursor.isNull(cursor.getColumnIndex("estado")) ? "" : cursor.getString(cursor.getColumnIndex("estado")));
+                    cita.setDetalleConsulta(cursor.isNull(cursor.getColumnIndex("detalleConsulta")) ? "" : cursor.getString(cursor.getColumnIndex("detalleConsulta")));
+                    cita.setLocal(cursor.isNull(cursor.getColumnIndex("nombrelocal")) ? "" : cursor.getString(cursor.getColumnIndex("nombrelocal")));
+
 
                     lstPersona.add(cita);
                 } while (cursor.moveToNext());

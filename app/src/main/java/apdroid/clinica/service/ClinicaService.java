@@ -57,9 +57,9 @@ public class ClinicaService {
             lstCitas = listarTodos();
         }else{
             lstCitas = new ArrayList<>();
-            lstCitas.add(new DatosCita("", "Odon tologia", "Juan Perez", "", "23-09-2015"));
-            lstCitas.add(new DatosCita("", "Medicina General", "Mario Aguirre", "", "23-10-2015"));
-            lstCitas.add(new DatosCita("", "Odontologia", "Juan Perez", "", "23-08-2015"));
+            lstCitas.add(new DatosCita("", "Odontologia", "Juan Perez", "", "23-09-2015","asdasdas" , "PROGRAMADO", "SAN BORJA"));
+            lstCitas.add(new DatosCita("", "Medicina General", "Mario Aguirre", "", "23-10-2015","asdasdas" , "PROGRAMADO" , "SURCO"));
+            lstCitas.add(new DatosCita("", "Odontologia", "Juan Perez", "", "23-08-2015","asdasdas" , "ASISTIDA" , "SAN BORJA"));
         }
 
 

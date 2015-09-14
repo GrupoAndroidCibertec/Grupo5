@@ -27,6 +27,14 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
+        <activity
+            android:name=".DetalleCitaActivity"
+            android:label="@string/title_activity_detalle_cita" >
+        </activity>
+        <activity
+            android:name=".PacienteActivity"
+            android:label="@string/title_activity_paciente" >
+        </activity>
     </application>
 
 </manifest>

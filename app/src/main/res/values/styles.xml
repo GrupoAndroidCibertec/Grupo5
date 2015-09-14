@@ -31,7 +31,9 @@
         <item name="android:textStyle">bold</item>
 
     </style>
-
+    <style name="tvNoEditable" parent="">
+        <item name="android:background">#E8F5E9</item>
+    </style>
 
 
 

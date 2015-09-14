@@ -18,8 +18,15 @@ public class RVDatosCitasAdapter extends RecyclerView.Adapter<RVDatosCitasAdapte
 
     private ArrayList<DatosCita> lstDatosCitas;
 
-    public RVDatosCitasAdapter(ArrayList<DatosCita> datosCitas){
-        lstDatosCitas = datosCitas;
+    private RVDatosCitasAdapterListener RVDatosCitasAdapterListener;
+
+
+    public RVDatosCitasAdapter(RVDatosCitasAdapterListener rvPrincipalAdapterListener) {
+        lstDatosCitas = new ArrayList<>();
+        RVDatosCitasAdapterListener = rvPrincipalAdapterListener;
+    }
+    public interface RVDatosCitasAdapterListener {
+        void onSelectedItem(DatosCita datosCita, int position);
     }
 
     @Override
@@ -33,11 +40,27 @@ public class RVDatosCitasAdapter extends RecyclerView.Adapter<RVDatosCitasAdapte
         lvDatosCitasAdapterViewHolder.tvNombreEspecialidad.setText(datosCita.getEspecialidad());
         lvDatosCitasAdapterViewHolder.tvNombreDoctor.setText(datosCita.getDoctor());
         lvDatosCitasAdapterViewHolder.tvFechaCita.setText(datosCita.getFecha());
-        lvDatosCitasAdapterViewHolder.tvEstadoCita.setText("PROGRAMADO");
+        lvDatosCitasAdapterViewHolder.tvEstadoCita.setText(datosCita.getEstado());
+        lvDatosCitasAdapterViewHolder.itemView.setTag(position);
+        lvDatosCitasAdapterViewHolder.itemView.setOnClickListener(itemViewOnClickListener);
+
+
 
 
 
     }
+
+    View.OnClickListener itemViewOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            if (RVDatosCitasAdapterListener != null){
+                RVDatosCitasAdapterListener.onSelectedItem(lstDatosCitas.get((int) v.getTag()), (int) v.getTag());
+
+
+            }
+        }
+    };
 
     @Override
     public int getItemCount() {

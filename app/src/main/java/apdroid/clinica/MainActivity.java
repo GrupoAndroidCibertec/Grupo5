@@ -33,7 +33,7 @@ import apdroid.clinica.service.ClinicaService;
 /**
  * Clase para la pantalla principal despues del Login
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapter.RVDatosCitasAdapterListener  {
 
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         lstDatosCitas =(RecyclerView) findViewById(R.id.lstDatosCitas);
         lstDatosCitas.setHasFixedSize(true);
         lstDatosCitas.setLayoutManager(new LinearLayoutManager(this));
-        rvDatosCitasAdapter = new RVDatosCitasAdapter(new ArrayList<DatosCita>());
+        rvDatosCitasAdapter = new RVDatosCitasAdapter(MainActivity.this);
         lstDatosCitas.setAdapter(rvDatosCitasAdapter);
 
     }
@@ -289,6 +289,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"Canceled",Toast.LENGTH_LONG).show();
             }
 
+        }else {
+
         }
 
 
@@ -300,6 +302,10 @@ public class MainActivity extends AppCompatActivity {
      * Carga la pantalla de mi cuenta
      */
     private void cargarMiCuenta(){
+        int usuario = this.getIntent().getIntExtra("user",0);
+        Intent intent = new Intent(MainActivity.this, PacienteActivity.class);
+        intent.putExtra("user",usuario);
+        startActivity(intent);
 
     }
 
@@ -310,11 +316,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public final static String ARG_DATOS_CITA = "datosCita", ARG_POSITION = "position";
+    private final static int REQUEST_CODE_CLICK = 2;
+    @Override
+    public void onSelectedItem(DatosCita datosCita, int position) {
+        Intent intent = new Intent(MainActivity.this, DetalleCitaActivity.class);
+        intent.putExtra(ARG_DATOS_CITA, datosCita);
+        intent.putExtra(ARG_POSITION, position);
+        startActivityForResult(intent, REQUEST_CODE_CLICK);
 
-
-
-
-
-
-
+    }
 }
