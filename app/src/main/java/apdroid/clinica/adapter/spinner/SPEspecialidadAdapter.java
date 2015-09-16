@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import apdroid.clinica.R;
@@ -18,8 +19,10 @@ import apdroid.clinica.entidades.Especialidad;
 public class SPEspecialidadAdapter extends ArrayAdapter<Especialidad> {
 
 
+
     public SPEspecialidadAdapter(Context context, List<Especialidad> objects) {
         super(context, 0, objects);
+
     }
 
     @Override

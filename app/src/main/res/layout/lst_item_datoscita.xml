@@ -15,19 +15,23 @@
             android:id="@+id/tvNombreEspecialidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Odontologia" />
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp"
+            />
 
         <TextView
             android:id="@+id/tvNombreDoctor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre de doctor" />
+            android:layout_marginBottom="2dp"
+             />
 
         <TextView
             android:id="@+id/tvFechaCita"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="18-07-2015" />
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp"/>
 
 
     </LinearLayout>

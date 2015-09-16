@@ -12,6 +12,21 @@ import apdroid.clinica.entidades.Especialidad;
  */
 public class EspecialidadDao {
 
+    private static EspecialidadDao singleton;
+
+
+
+    private EspecialidadDao(){
+    }
+
+    public static EspecialidadDao getSingleton(){
+        if(singleton == null){
+            singleton = new EspecialidadDao();
+        }
+
+        return singleton;
+    }
+
     public ArrayList<Especialidad> listarEspecialidades() {
         ArrayList<Especialidad> lstEspecialidad = new ArrayList<>();
         Cursor cursor = null;

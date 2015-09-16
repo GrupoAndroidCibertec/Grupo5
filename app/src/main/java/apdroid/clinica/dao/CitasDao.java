@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import apdroid.clinica.DB_Helper;
 import apdroid.clinica.entidades.DatosCita;
@@ -13,17 +14,29 @@ import apdroid.clinica.entidades.DatosCita;
  */
 public class CitasDao {
 
+    private static CitasDao singleton = null;
 
-    private final String sql_listAll = "select id_cita, id_doctor, id_paciente, (select nombre_espec from especialidad where id_especialidad = d.id_especialidad) nom_especialidad, d.nombre || ' ' || d.apellido nom_doctor, fecha, hora , estado , detalleConsulta , nombrelocal from cita c inner join doctor d on c.id_doctor=d.id_doc inner join local l on l.idlocal = d.idlocal order by date(fecha) desc";
+    private final String sql_listAll = "select id_cita, id_doctor, id_paciente, (select nombre_espec from especialidad where id_especialidad = d.id_especialidad) nom_especialidad, d.nombre || ' ' || d.apellido nom_doctor, fecha, hora , estado , detalleConsulta , nombrelocal from cita c inner join doctor d on c.id_doctor=d.id_doc inner join local l on l.idlocal = d.idlocal ";
 
+    private final String orderBy = "order by date(fecha) desc";
 
-    public ArrayList<DatosCita> listCitas() {
-        ArrayList<DatosCita> lstPersona = new ArrayList<>();
+    private CitasDao(){
+
+    }
+
+    public static CitasDao getSingleton(){
+        if(singleton == null){
+            singleton = new CitasDao();
+        }
+        return singleton;
+    }
+
+    private ArrayList<DatosCita> ejecutarQuery(String query, String[] args){
         Cursor cursor = null;
         DatosCita cita = null;
-
+        ArrayList<DatosCita> lstPersona = new ArrayList<>();
         try {
-            cursor = DB_Helper.getMyDataBase().rawQuery(sql_listAll, null);
+            cursor = DB_Helper.getMyDataBase().rawQuery(query, args);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -52,40 +65,31 @@ public class CitasDao {
         }
 
         return lstPersona;
+
     }
 
-    public void addPersona(DatosCita persona) {
-        try {
-            ContentValues cv = new ContentValues();
-//            cv.put("Nombre", persona.getNombre());
-//            cv.put("Apellido", persona.getApellido());
-//            cv.put("Edad", persona.getEdad());
-//            cv.put("DNI", persona.getDNI());
-            DB_Helper.getMyDataBase().insert("Persona", null, cv);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+    public ArrayList<DatosCita> buscarCitas(DatosCita datosCita) {
+        ArrayList<DatosCita> lstPersona = new ArrayList<>();
+        String finalQuery = null;
+        StringBuilder whereQuery = new StringBuilder();
+        List<String> params = new ArrayList<>();
+
+        if(datosCita != null){
+
+            whereQuery.append("where 1 = 1 ");
+            if( datosCita.getIdEspecialidad() != null && datosCita.getIdEspecialidad() != -1){
+                whereQuery.append("and d.id_especialidad = ? ");
+                params.add(String.valueOf(datosCita.getIdEspecialidad()));
+            }
         }
+
+        finalQuery = sql_listAll + whereQuery + orderBy;
+
+        lstPersona = ejecutarQuery(finalQuery, params.size() > 0 ? params.toArray(new String[]{}) : null);
+
+
+        return lstPersona;
     }
 
-    public void updatePersona(DatosCita persona) {
-        try {
-            ContentValues cv = new ContentValues();
-//            cv.put("Nombre", persona.getNombre());
-//            cv.put("Apellido", persona.getApellido());
-//            cv.put("Edad", persona.getEdad());
-//            cv.put("DNI", persona.getDNI());
-            DB_Helper.getMyDataBase().update("Persona", cv, "IdPersona = ?", new String[]{String.valueOf(persona.getIdCita())});
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void deletePersona(DatosCita persona) {
-        try {
-            DB_Helper.getMyDataBase().delete("Persona", "IdPersona = ?", new String[]{String.valueOf(persona.getIdCita())});
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
 }

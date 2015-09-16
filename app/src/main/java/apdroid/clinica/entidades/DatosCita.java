@@ -20,9 +20,9 @@ public class DatosCita implements Parcelable {
         }
     };
 
-    private int idCita;
-    private int idDoctor;
-    private int idPaciente;
+    private Integer idCita;
+    private Integer idDoctor;
+    private Integer idPaciente;
 
     private String especialidad;
     private String doctor;
@@ -33,6 +33,8 @@ public class DatosCita implements Parcelable {
     private String detalleConsulta ;
     private String estado;
     private String local ;
+
+    private Integer idEspecialidad;
 
 
 
@@ -65,13 +67,6 @@ public class DatosCita implements Parcelable {
     //<editor-fold desc="Getters and Setters">
 
 
-//    public String getNombre() {
-//        return nombre;
-//    }
-//
-//    public void setNombre(String nombre) {
-//        this.nombre = nombre;
-//    }
 
     public String getEspecialidad() {
         return especialidad;
@@ -106,27 +101,27 @@ public class DatosCita implements Parcelable {
         this.fecha = fecha;
     }
 
-    public int getIdCita() {
+    public Integer getIdCita() {
         return idCita;
     }
 
-    public void setIdCita(int idCita) {
+    public void setIdCita(Integer idCita) {
         this.idCita = idCita;
     }
 
-    public int getIdDoctor() {
+    public Integer getIdDoctor() {
         return idDoctor;
     }
 
-    public void setIdDoctor(int idDoctor) {
+    public void setIdDoctor(Integer idDoctor) {
         this.idDoctor = idDoctor;
     }
 
-    public int getIdPaciente() {
+    public Integer getIdPaciente() {
         return idPaciente;
     }
 
-    public void setIdPaciente(int idPaciente) {
+    public void setIdPaciente(Integer idPaciente) {
         this.idPaciente = idPaciente;
     }
 
@@ -154,6 +149,14 @@ public class DatosCita implements Parcelable {
         this.local = local;
     }
 
+    public Integer getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(Integer idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -170,4 +173,5 @@ public class DatosCita implements Parcelable {
         dest.writeString(estado);
         dest.writeString(local);
     }
+
 }

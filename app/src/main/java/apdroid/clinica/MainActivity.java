@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import apdroid.clinica.adapter.DrawerItem;
 import apdroid.clinica.adapter.DrawerListAdapter;
@@ -53,10 +55,14 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
     private ClinicaService clinicaService;
 
+    public MainActivity() {
+        Log.d("MainActivity", "Constructor");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ONCreate", "oncreate");
         setContentView(R.layout.activity_main);
         DB_Helper manager= new DB_Helper(this);
         try {
@@ -80,9 +86,16 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
         spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
 
         ArrayList<Especialidad> listEspec = clinicaService.listarEspecialidades();
-        listEspec.add(0, new Especialidad(-1, "<Seleccione Especialidad>"));
-        spEspecialidadAdapter = new SPEspecialidadAdapter(this, listEspec);
-        spEspecialidad.setAdapter(spEspecialidadAdapter);
+        if(spEspecialidadAdapter == null){
+
+            ArrayList<Especialidad> lstSpinner = new ArrayList<>(listEspec);
+            lstSpinner.add(0, new Especialidad(-1, "<Seleccione Especialidad>") );
+            spEspecialidadAdapter = new SPEspecialidadAdapter(this, lstSpinner);
+            spEspecialidad.setAdapter(spEspecialidadAdapter);
+        }
+
+
+
         spEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -106,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     private void filtrarCitas(Especialidad especialidad, String fecha){
         ArrayList<DatosCita> listaCitas = null;
         DatosCita datosCita = new DatosCita();
-        datosCita.setEspecialidad(especialidad==null || especialidad.getIdEspecialidad()==-1? "": especialidad.getNombre());
+        datosCita.setIdEspecialidad( especialidad.getIdEspecialidad() );
         datosCita.setFecha(fecha);
         listaCitas = clinicaService.filtrarCitas(datosCita);
         rvDatosCitasAdapter.setNewSource(listaCitas);

@@ -22,8 +22,8 @@ public class ClinicaService {
     private ArrayList<Especialidad> lstEspecialidadCache;
 
     private ClinicaService(){
-        especialidadDao = new EspecialidadDao();
-        citasDao = new CitasDao();
+        especialidadDao = EspecialidadDao.getSingleton();
+        citasDao = CitasDao.getSingleton();
 
     }
 
@@ -44,26 +44,12 @@ public class ClinicaService {
     }
 
 
-    public ArrayList<DatosCita> listarTodos(){
-        ArrayList<DatosCita> lstCitas = null;
-        lstCitas = citasDao.listCitas();
-        return lstCitas;
-    }
-
-
     public ArrayList<DatosCita> filtrarCitas(DatosCita datosCita){
         ArrayList<DatosCita> lstCitas = null;
-        if( "".equals( datosCita.getEspecialidad() ) ){
-            lstCitas = listarTodos();
-        }else{
-            lstCitas = new ArrayList<>();
-            lstCitas.add(new DatosCita("", "Odontologia", "Juan Perez", "", "23-09-2015","asdasdas" , "PROGRAMADO", "SAN BORJA"));
-            lstCitas.add(new DatosCita("", "Medicina General", "Mario Aguirre", "", "23-10-2015","asdasdas" , "PROGRAMADO" , "SURCO"));
-            lstCitas.add(new DatosCita("", "Odontologia", "Juan Perez", "", "23-08-2015","asdasdas" , "ASISTIDA" , "SAN BORJA"));
-        }
+        Log.d("FiltrarCitas", String.valueOf(datosCita.getIdEspecialidad()));
+        lstCitas = citasDao.buscarCitas(datosCita);
 
 
-        Log.d("FiltrarCitas", datosCita.toString());
         return lstCitas;
     }
 }
