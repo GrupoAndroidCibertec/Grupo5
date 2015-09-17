@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 //datosPersona.setNombre(sp.getString(ARG_NOMBRE,""));
                 //intent.putExtra("user", nUser);
                 //intent.putExtra("datosper",datosPersona);
-                intent.putExtra("npersona",nya);
+                intent.putExtra(MainActivity.ARG_USUARIO, nya);
                 startActivity(intent);
                 finish();
 
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             //DatosCita datosPersona = new DatosCita();
             //datosPersona.setNombre(sp.getString(ARG_NOMBRE,""));
-            intent.putExtra("npersona", sp.getString(ARG_NOMBRE,"Default"));
+            intent.putExtra(MainActivity.ARG_USUARIO, sp.getString(ARG_NOMBRE,"Default"));
             //intent.putExtra("user",sp.getInt(ARG_NUSER,0));
             //intent.putExtra("datosper",datosPersona);
             startActivity(intent);

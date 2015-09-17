@@ -28,7 +28,8 @@
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -187,6 +188,7 @@
                     android:text="Reprogramar Cita"
 
                     android:textSize="18dp" />
+
             </LinearLayout>
 
 

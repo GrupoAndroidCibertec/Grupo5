@@ -37,6 +37,7 @@
     <string name="text_estilo">Estilos</string>
     <string name="text_actualizar_usuario">Actualizar</string>
     <string name="title_activity_paciente">PacienteActivity</string>
+    <string name="title_activity_reprogramar_cita">ReprogramarCitaActivity</string>
 
 
 

@@ -26,7 +26,7 @@
         <!--<item name="android:layout_width">150dp</item>-->
     <!--</style>-->
 
-    <style name="btClinica" parent="Widget.AppCompat.EditText">
+    <style name="btClinica" parent="Widget.AppCompat.Button">
         <item name="android:background">#1B5E20</item>
         <item name="android:textColor">#E8F5E9</item>
         <item name="android:layout_width">150dp</item>

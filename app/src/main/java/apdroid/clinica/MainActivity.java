@@ -31,6 +31,7 @@ import apdroid.clinica.adapter.spinner.SPEspecialidadAdapter;
 import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.entidades.Especialidad;
 import apdroid.clinica.service.ClinicaService;
+import apdroid.clinica.util.Constantes;
 
 /**
  * Clase para la pantalla principal despues del Login
@@ -272,26 +273,27 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
      * Carga la pantalla de nueva cita
      */
 
-    private int Req_Code=22;
+    //private int Req_Code=22;
+    public static String ARG_USUARIO =  "npersona";
 
     private void cargarNuevaCita(){
         //int usuario = this.getIntent().getIntExtra("user",0);
-        String nusuario=this.getIntent().getStringExtra("npersona");
+        String nusuario=this.getIntent().getStringExtra( ARG_USUARIO );
 
 
         Intent intent = new Intent(MainActivity.this, NuevaCitaActivity.class);
         //intent.putExtra("user",usuario);
-        intent.putExtra("npersona",nusuario);
+        intent.putExtra(ARG_USUARIO ,nusuario);
 
-        startActivityForResult(intent, Req_Code); // declarar ... private int Req_Code=22;
+        startActivityForResult(intent, Constantes.REQUEST_NUEVACITA); // declarar ... private int Req_Code=22;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==Req_Code){
-            if(resultCode==RESULT_OK){
+        if( requestCode == Constantes.REQUEST_NUEVACITA ){
+            if( resultCode == RESULT_OK ){
                 DatosCita dataOAR=data.getParcelableExtra("data");
                 Toast.makeText(this,dataOAR.getEspecialidad().toString(),Toast.LENGTH_LONG).show();
                 Toast.makeText(this,dataOAR.getFecha().toString(),Toast.LENGTH_LONG).show();
@@ -330,13 +332,13 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     }
 
     public final static String ARG_DATOS_CITA = "datosCita", ARG_POSITION = "position";
-    private final static int REQUEST_CODE_CLICK = 2;
+
     @Override
     public void onSelectedItem(DatosCita datosCita, int position) {
         Intent intent = new Intent(MainActivity.this, DetalleCitaActivity.class);
         intent.putExtra(ARG_DATOS_CITA, datosCita);
         intent.putExtra(ARG_POSITION, position);
-        startActivityForResult(intent, REQUEST_CODE_CLICK);
+        startActivityForResult(intent, Constantes.REQUEST_DETALLECITA);
 
     }
 }

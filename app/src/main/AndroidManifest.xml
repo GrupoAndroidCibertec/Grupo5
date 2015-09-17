@@ -35,6 +35,10 @@
             android:name=".PacienteActivity"
             android:label="@string/title_activity_paciente" >
         </activity>
+        <activity
+            android:name=".ReprogramarCitaActivity"
+            android:label="@string/title_activity_reprogramar_cita" >
+        </activity>
     </application>
 
 </manifest>

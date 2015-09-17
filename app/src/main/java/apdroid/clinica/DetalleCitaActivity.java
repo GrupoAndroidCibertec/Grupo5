@@ -1,20 +1,23 @@
 package apdroid.clinica;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import apdroid.clinica.entidades.DatosCita;
+import apdroid.clinica.util.Constantes;
 
 
 public class DetalleCitaActivity extends AppCompatActivity {
 
     private TextView tvNombreEspecialidad , tv_fecha_hora, tvNombreDoctor , tv_nombre_local , tv_detalle_consulta ,tv_l_detalle_consulta ;
     private Button     btanularcita , btreprogramar ;
-
+    private DatosCita datosCita = null;
     private int position = -1;
 
 
@@ -40,7 +43,7 @@ public class DetalleCitaActivity extends AppCompatActivity {
 
 
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(MainActivity.ARG_DATOS_CITA)) {
-            DatosCita datosCita = getIntent().getParcelableExtra(MainActivity.ARG_DATOS_CITA);
+            datosCita = getIntent().getParcelableExtra(MainActivity.ARG_DATOS_CITA);
 
             if(datosCita.getEstado().equals("PROGRAMADO")){
                 tv_detalle_consulta.setVisibility(View.INVISIBLE);
@@ -82,10 +85,20 @@ public class DetalleCitaActivity extends AppCompatActivity {
     View.OnClickListener btreprogramarOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            reprogramarCita();
 
         }
     };
+
+    private void reprogramarCita(){
+
+        Intent intent = new Intent(DetalleCitaActivity.this, ReprogramarCitaActivity.class);
+
+        intent.putExtra( MainActivity.ARG_DATOS_CITA, datosCita );
+
+        startActivityForResult(intent, Constantes.REQUEST_RESERVARCITA);
+
+    }
 
 
 

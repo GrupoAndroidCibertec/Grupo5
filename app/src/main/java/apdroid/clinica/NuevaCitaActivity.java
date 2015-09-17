@@ -181,10 +181,10 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
 
 
-        String nuser = this.getIntent().getStringExtra("npersona");
+        String nuser = this.getIntent().getStringExtra(MainActivity.ARG_USUARIO);
         tvUser.setText(nuser);
 
-
+        
     }
 
     View.OnClickListener btReservCitaOnClickListener = new View.OnClickListener() {
