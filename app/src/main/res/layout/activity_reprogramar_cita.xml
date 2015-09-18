@@ -134,7 +134,7 @@
                 android:text="Horario:" />
 
             <Spinner
-                android:id="@+id/spHorario"
+                android:id="@+id/spHorarioReprog"
                 style="@style/spNA"
                 android:layout_marginLeft="@dimen/margens5"></Spinner>
 

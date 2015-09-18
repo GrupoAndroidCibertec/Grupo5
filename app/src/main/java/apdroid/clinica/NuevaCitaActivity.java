@@ -29,7 +29,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
     ArrayAdapter<String> aaEspecialidad, aaDoctor, aaHorario, aaClear;
     String[] opEspecialidad = new String[]{"Cardiologia", "Reumatologia", "Oftalmologia"};
     String[] opDoctor = new String[]{"Dra.Alvarez", "Dr.Vera", "Dr.Stegui"};
-    String[] opHorario = new String[]{"8:00-9:00", "9:00-10:00", "10:00-11:00"};
+    String[] opHorario = null;//new String[]{"8:00-9:00", "9:00-10:00", "10:00-11:00"};
     String[] opClear = new String[0];
     Calendar calendario = Calendar.getInstance();
 
@@ -171,7 +171,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
 
         formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-
+        opHorario = getResources().getStringArray(R.array.ListaHorarios);
         aaEspecialidad = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opEspecialidad);
         aaDoctor = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, opDoctor);
         aaHorario = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, opHorario);
