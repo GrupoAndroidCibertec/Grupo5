@@ -4,32 +4,13 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-    <LinearLayout
-        android:id="@+id/lytTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/ColorPrimary"
-        android:elevation="4dp"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/tool_bar_top_padding">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:gravity="center_horizontal"
-            android:text="@string/title_activity_main"
-            android:textColor="#FFFFFF"
-            android:textSize="22dp"
-            android:typeface="serif" />
-
-    </LinearLayout>
+    <include android:id="@+id/lytTitulo" layout="@layout/encabezado_pantalla"></include>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/rlUser"
-        android:layout_below="@id/lytTitulo"
+        android:layout_below="@+id/lytTitulo"
         android:fillViewport="false">
 
         <LinearLayout
