@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical">
+    >
 
     <LinearLayout
-        android:elevation="4dp"
-        android:paddingTop="@dimen/tool_bar_top_padding"
+        android:id="@+id/lytTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ColorPrimary"
-        android:orientation="horizontal">
-
-
+        android:elevation="4dp"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/tool_bar_top_padding">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:gravity="center_horizontal"
-            android:textColor="#FFFFFF"
             android:text="@string/title_activity_main"
+            android:textColor="#FFFFFF"
             android:textSize="22dp"
             android:typeface="serif" />
 
     </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:clickable="false">
+        android:layout_above="@+id/rlUser"
+        android:layout_below="@id/lytTitulo"
+        android:fillViewport="false"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="7"
             android:background="#F5F5DC"
-            android:orientation="vertical"
-
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -55,14 +57,11 @@
                     android:text="@string/text_especialidad" />
 
                 <TextView
+                    android:id="@+id/tvNombreEspecialidad"
+                    style="@style/tvNoEditable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/tvNoEditable"
-                    android:layout_marginLeft="@dimen/margens5"
-                    android:id="@+id/tvNombreEspecialidad"
-                    />
-
-
+                    android:layout_marginLeft="@dimen/margens5" />
 
 
             </LinearLayout>
@@ -70,6 +69,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -80,12 +80,11 @@
                     android:text="@string/text_fecha_hora" />
 
                 <TextView
+                    android:id="@+id/tv_fecha_hora"
+                    style="@style/tvNoEditable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/tvNoEditable"
-                    android:layout_marginLeft="@dimen/margens5"
-                    android:id="@+id/tv_fecha_hora"
-                    />
+                    android:layout_marginLeft="@dimen/margens5" />
 
 
             </LinearLayout>
@@ -94,6 +93,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -104,18 +104,18 @@
                     android:text="@string/text_doctor" />
 
                 <TextView
+                    android:id="@+id/tvNombreDoctor"
+                    style="@style/tvNoEditable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/tvNoEditable"
-                    android:layout_marginLeft="@dimen/margens5"
-                    android:id="@+id/tvNombreDoctor"
-                    />
+                    android:layout_marginLeft="@dimen/margens5" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -127,41 +127,40 @@
                     android:text="@string/text_local" />
 
                 <TextView
+                    android:id="@+id/tv_nombre_local"
+                    style="@style/tvNoEditable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/tvNoEditable"
-                    android:layout_marginLeft="@dimen/margens5"
-                    android:id="@+id/tv_nombre_local"
-                    />
+                    android:layout_marginLeft="@dimen/margens5" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_l_detalle_consulta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#F5F5DC"
                     android:inputType="none"
-                    android:text="@string/text_detalle"
-                    android:id="@+id/tv_l_detalle_consulta"
-                    />
+                    android:text="@string/text_detalle" />
 
                 <TextView
+                    android:id="@+id/tv_detalle_consulta"
+                    style="@style/tvNoEditable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/tvNoEditable"
-                    android:layout_marginLeft="@dimen/margens5"
-                    android:id="@+id/tv_detalle_consulta"
-                    />
+                    android:layout_marginLeft="@dimen/margens5" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/llref5"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -170,20 +169,21 @@
                     style="@style/btClinica"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:padding="10dp"
                     android:text="Anular Cita"
 
                     android:textSize="18dp" />
+
                 <Button
                     android:id="@+id/btreprogramar"
                     style="@style/btClinica"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="1"
                     android:padding="10dp"
                     android:text="Reprogramar Cita"
 
@@ -196,9 +196,11 @@
 
 
     </ScrollView>
-    <RelativeLayout
+
+
+    <LinearLayout
         android:id="@+id/rlUser"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#8FBC8F">
@@ -213,7 +215,7 @@
             android:text="USUARIO" />
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package apdroid.clinica;
+package apdroid.clinica.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

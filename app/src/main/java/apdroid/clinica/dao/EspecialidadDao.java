@@ -4,7 +4,6 @@ import android.database.Cursor;
 
 import java.util.ArrayList;
 
-import apdroid.clinica.DB_Helper;
 import apdroid.clinica.entidades.Especialidad;
 
 /**

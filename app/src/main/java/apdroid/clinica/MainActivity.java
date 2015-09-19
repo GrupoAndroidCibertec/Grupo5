@@ -22,12 +22,12 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import apdroid.clinica.adapter.DrawerItem;
 import apdroid.clinica.adapter.DrawerListAdapter;
 import apdroid.clinica.adapter.recyclerview.RVDatosCitasAdapter;
 import apdroid.clinica.adapter.spinner.SPEspecialidadAdapter;
+import apdroid.clinica.dao.DB_Helper;
 import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.entidades.Especialidad;
 import apdroid.clinica.service.ClinicaService;

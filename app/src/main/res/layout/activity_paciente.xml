@@ -176,6 +176,7 @@
                 android:padding="10dp"
                 android:text="@string/text_actualizar_usuario"
                 android:textSize="18dp" />
+
         </LinearLayout>
 
 

@@ -1,12 +1,10 @@
 package apdroid.clinica.dao;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import apdroid.clinica.DB_Helper;
 import apdroid.clinica.entidades.DatosCita;
 
 /**
