@@ -198,24 +198,9 @@
     </ScrollView>
 
 
-    <LinearLayout
+    <include
         android:id="@+id/rlUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#8FBC8F">
-
-
-        <TextView
-            android:id="@+id/tvUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#0000"
-            android:gravity="center"
-            android:text="USUARIO" />
-
-
-    </LinearLayout>
-
+        layout="@layout/pie_pantalla">
+    </include>
 
 </RelativeLayout>

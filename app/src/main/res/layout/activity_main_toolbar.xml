@@ -9,4 +9,6 @@
     android:background="@color/ColorPrimary"
     >
 
+    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark"-->
+
 </android.support.v7.widget.Toolbar>
