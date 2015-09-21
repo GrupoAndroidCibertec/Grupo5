@@ -1,5 +1,6 @@
 package apdroid.clinica;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.view.GravityCompat;
@@ -10,18 +11,28 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import apdroid.clinica.adapter.DrawerItem;
 import apdroid.clinica.adapter.DrawerListAdapter;
@@ -50,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
     private Spinner spEspecialidad;
     private SPEspecialidadAdapter spEspecialidadAdapter;
+    private EditText tvFechaFiltro;
+    private ImageButton btFechaFiltro;
+    private ImageButton btFechaLimpiar;
 
     private RecyclerView lstDatosCitas;
     private RVDatosCitasAdapter rvDatosCitasAdapter;
@@ -84,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     }
 
     private void configurarControles(){
+        configurarFiltroFechas();
+
         spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
 
         ArrayList<Especialidad> listEspec = clinicaService.listarEspecialidades();
@@ -101,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filtrarCitas((Especialidad) parent.getItemAtPosition(position), null);
+                filtrarCitas();
             }
 
             @Override
@@ -109,19 +125,106 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
             }
         });
 
+
+
         lstDatosCitas =(RecyclerView) findViewById(R.id.lstDatosCitas);
         lstDatosCitas.setHasFixedSize(true);
         lstDatosCitas.setLayoutManager(new LinearLayoutManager(this));
         rvDatosCitasAdapter = new RVDatosCitasAdapter(MainActivity.this);
         lstDatosCitas.setAdapter(rvDatosCitasAdapter);
 
+
     }
 
-    private void filtrarCitas(Especialidad especialidad, String fecha){
+    private void configurarFiltroFechas(){
+        Log.d(this.getLocalClassName(), "configurarFiltroFechas");
+
+        tvFechaFiltro = (EditText) findViewById( R.id.tvFechaFiltro );
+        btFechaFiltro = (ImageButton) findViewById( R.id.btFechaFiltro );
+        btFechaLimpiar = (ImageButton) findViewById(R.id.btFechaLimpiar);
+
+        tvFechaFiltro.setInputType(InputType.TYPE_NULL);
+        tvFechaFiltro.setOnKeyListener(null);
+        tvFechaFiltro.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null) {
+                    filtrarCitas();
+                }
+            }
+        });
+        tvFechaFiltro.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    configurarDatePicker();
+                }
+            }
+        });
+        tvFechaFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                configurarDatePicker();
+            }
+        });
+        btFechaFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                configurarDatePicker();
+            }
+        });
+        btFechaLimpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvFechaFiltro.setText("");
+            }
+        });
+
+    }
+
+    private void configurarDatePicker(){
+        Log.d(this.getLocalClassName(), "configurarDatePicker");
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, dpetOnDateSetListener,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
+        datePickerDialog.setTitle("Fecha de Cita");
+        //datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+        datePickerDialog.show();
+    }
+
+    private DatePickerDialog.OnDateSetListener dpetOnDateSetListener = new DatePickerDialog.OnDateSetListener(){
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            Calendar c = Calendar.getInstance();
+            c.set(year, monthOfYear, dayOfMonth);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            tvFechaFiltro.setText(sdf.format(c.getTime()));
+            //getWindow().getDecorView().clearFocus();
+        }
+    };
+
+
+    private void filtrarCitas(){
+        String fecha = tvFechaFiltro.getText().toString();
+        Especialidad especialidad = (Especialidad)spEspecialidad.getSelectedItem();
+
         ArrayList<DatosCita> listaCitas = null;
         DatosCita datosCita = new DatosCita();
         datosCita.setIdEspecialidad( especialidad.getIdEspecialidad() );
         datosCita.setFecha(fecha);
+
         listaCitas = clinicaService.filtrarCitas(datosCita);
         rvDatosCitasAdapter.setNewSource(listaCitas);
     }

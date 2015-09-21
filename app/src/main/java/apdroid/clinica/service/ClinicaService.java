@@ -19,7 +19,6 @@ public class ClinicaService {
     private EspecialidadDao especialidadDao;
     private CitasDao citasDao;
 
-    private ArrayList<Especialidad> lstEspecialidadCache;
 
     private ClinicaService(){
         especialidadDao = EspecialidadDao.getSingleton();
@@ -37,16 +36,16 @@ public class ClinicaService {
 
 
     public ArrayList<Especialidad> listarEspecialidades(){
-        if( lstEspecialidadCache == null){
-            lstEspecialidadCache = especialidadDao.listarEspecialidades();
-        }
+        ArrayList<Especialidad> lstEspecialidadCache = null;
+        lstEspecialidadCache = especialidadDao.listarEspecialidades();
+
         return lstEspecialidadCache;
     }
 
 
     public ArrayList<DatosCita> filtrarCitas(DatosCita datosCita){
         ArrayList<DatosCita> lstCitas = null;
-        Log.d("FiltrarCitas", String.valueOf(datosCita.getIdEspecialidad()));
+
         lstCitas = citasDao.buscarCitas(datosCita);
 
 

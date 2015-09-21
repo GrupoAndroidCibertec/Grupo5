@@ -2,8 +2,12 @@ package apdroid.clinica.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import apdroid.clinica.entidades.DatosCita;
@@ -83,10 +87,31 @@ public class CitasDao {
                 whereQuery.append("and d.id_especialidad = ? ");
                 params.add(String.valueOf(datosCita.getIdEspecialidad()));
             }
+
+            if(datosCita.getFecha()!=null && !"".equals(datosCita.getFecha())){
+                Date date = null;
+                String fecha = null;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdfDB = new SimpleDateFormat("yyyy-MM-dd");
+
+                try {
+                    date = sdf.parse(datosCita.getFecha());
+                    fecha = sdfDB.format(date);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if ( fecha!=null ){
+                    whereQuery.append("and c.fecha = ? ");
+                    params.add(fecha);
+                }
+
+            }
         }
 
         finalQuery = sql_listAll + whereQuery + orderBy;
-
+        Log.d("", finalQuery);
+        Log.d("", params.toString());
         lstPersona = ejecutarQuery(finalQuery, params.size() > 0 ? params.toArray(new String[]{}) : null);
 
 
