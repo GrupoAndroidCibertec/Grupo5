@@ -61,6 +61,7 @@ public class DatosCita implements Parcelable {
         detalleConsulta = in.readString();
         estado  =in.readString();
         local = in.readString() ;
+        idCita = in.readInt()  ;
 
     }
 
@@ -172,6 +173,7 @@ public class DatosCita implements Parcelable {
         dest.writeString(detalleConsulta);
         dest.writeString(estado);
         dest.writeString(local);
+        dest.writeInt(idCita);
     }
 
 }
