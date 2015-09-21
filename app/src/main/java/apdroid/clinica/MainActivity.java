@@ -41,8 +41,10 @@ import apdroid.clinica.adapter.spinner.SPEspecialidadAdapter;
 import apdroid.clinica.dao.DB_Helper;
 import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.entidades.Especialidad;
+import apdroid.clinica.entidades.Paciente;
 import apdroid.clinica.service.ClinicaService;
 import apdroid.clinica.util.Constantes;
+import apdroid.clinica.util.Idioma;
 
 /**
  * Clase para la pantalla principal despues del Login
@@ -407,8 +409,25 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
                 Toast.makeText(this,"Canceled",Toast.LENGTH_LONG).show();
             }
 
-        }else {
+        }else if( requestCode == Constantes.REQUEST_DETALLECITA ) {
+            if( resultCode == RESULT_OK ){
+                DatosCita datosCita = data.getParcelableExtra(ARG_DATOS_CITA);
+                int position = data.getIntExtra(ARG_POSITION, -1);
+                if (position != -1) {
+                    DatosCita old =  rvDatosCitasAdapter.getItem(position);
+                    old.setEstado(datosCita.getEstado());
+                    rvDatosCitasAdapter.notifyDataSetChanged();
 
+                }
+            }
+        }else if (requestCode ==Constantes.REQUEST_ACTUALIZARPACIENTE){
+           if(resultCode == RESULT_OK){
+               Paciente paciente = data.getParcelableExtra("data");
+               Idioma idioma= new Idioma();
+               idioma.cambiaIdioma(paciente.getIdioma(), getBaseContext());
+
+
+           }
         }
 
 
@@ -423,7 +442,11 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
         int usuario = this.getIntent().getIntExtra("user",0);
         Intent intent = new Intent(MainActivity.this, PacienteActivity.class);
         intent.putExtra("user",usuario);
-        startActivity(intent);
+        String nusuario=this.getIntent().getStringExtra( ARG_USUARIO );
+
+        intent.putExtra(ARG_USUARIO ,nusuario);
+
+        startActivityForResult(intent, Constantes.REQUEST_ACTUALIZARPACIENTE);
 
     }
 
@@ -438,10 +461,15 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
     @Override
     public void onSelectedItem(DatosCita datosCita, int position) {
-        Intent intent = new Intent(MainActivity.this, DetalleCitaActivity.class);
-        intent.putExtra(ARG_DATOS_CITA, datosCita);
-        intent.putExtra(ARG_POSITION, position);
-        startActivityForResult(intent, Constantes.REQUEST_DETALLECITA);
+        if (!datosCita.getEstado().equals("ANULADA")){
+            Intent intent = new Intent(MainActivity.this, DetalleCitaActivity.class);
+            intent.putExtra(ARG_DATOS_CITA, datosCita);
+            intent.putExtra(ARG_POSITION, position);
+            String nusuario=this.getIntent().getStringExtra( ARG_USUARIO );
 
+            intent.putExtra(ARG_USUARIO ,nusuario);
+
+            startActivityForResult(intent, Constantes.REQUEST_DETALLECITA);
+        }
     }
 }

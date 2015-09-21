@@ -8,5 +8,9 @@ public class Constantes {
     public static int REQUEST_NUEVACITA = 22;
     public static int REQUEST_RESERVARCITA = 23;
     public static int REQUEST_DETALLECITA = 24;
+    public static int REQUEST_ANULARCITA = 25 ;
+    public static int REQUEST_ACTUALIZARPACIENTE = 26 ;
+
+
 
 }

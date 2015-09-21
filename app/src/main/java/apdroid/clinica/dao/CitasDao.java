@@ -23,7 +23,6 @@ public class CitasDao {
 
     private final String orderBy = "order by date(fecha) desc";
 
-    private final String updateAnulacion = "update cita   set   estado = 'ANULADA' WHERE  ID_CITA = ?"  ;
 
 
     private CitasDao(){
@@ -118,10 +117,10 @@ public class CitasDao {
         return lstPersona;
     }
 
-    public boolean actualizarCita(DatosCita datosCita){
+    public boolean anularCita(DatosCita datosCita){
         try {
             ContentValues cv = new ContentValues();
-            cv.put("estado", "ANULADA");
+            cv.put("estado", datosCita.getEstado());
 
             DB_Helper.getMyDataBase().update("cita", cv, "id_cita = ?", new String[]{String.valueOf(datosCita.getIdCita())});
         } catch (Exception ex) {

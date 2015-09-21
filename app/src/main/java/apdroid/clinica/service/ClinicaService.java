@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import apdroid.clinica.dao.CitasDao;
 import apdroid.clinica.dao.EspecialidadDao;
+import apdroid.clinica.dao.PacienteDao;
 import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.entidades.Especialidad;
+import apdroid.clinica.entidades.Paciente;
 
 /**
  * Created by ANTONIO on 09/09/2015.
@@ -18,11 +20,13 @@ public class ClinicaService {
 
     private EspecialidadDao especialidadDao;
     private CitasDao citasDao;
+    private PacienteDao pacienteDao;
 
 
     private ClinicaService(){
         especialidadDao = EspecialidadDao.getSingleton();
         citasDao = CitasDao.getSingleton();
+        pacienteDao =PacienteDao.getSingleton();
 
     }
 
@@ -52,9 +56,14 @@ public class ClinicaService {
         return lstCitas;
     }
 
-    public boolean actualizarCita(DatosCita datosCita){
-        citasDao.actualizarCita(datosCita)  ;
-        return true ;
+    public boolean anularCita(DatosCita datosCita){
+        return citasDao.anularCita(datosCita) ;
 
+    }
+    public Paciente consultaPacientexid(int idpaciente){
+        return pacienteDao.ejecutarQueryxid(idpaciente);
+    }
+    public boolean actualizarPaciente(Paciente paciente){
+        return pacienteDao.actualizarPaciente(paciente) ;
     }
 }

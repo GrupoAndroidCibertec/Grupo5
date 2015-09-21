@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.service.ClinicaService;
@@ -18,7 +19,7 @@ import apdroid.clinica.util.Constantes;
 
 public class DetalleCitaActivity extends AppCompatActivity {
 
-    private TextView tvNombreEspecialidad , tv_fecha_hora, tvNombreDoctor , tv_nombre_local , tv_detalle_consulta ,tv_l_detalle_consulta ;
+    private TextView tvUser,tvNombreEspecialidad , tv_fecha_hora, tvNombreDoctor , tv_nombre_local , tv_detalle_consulta ,tv_l_detalle_consulta ;
     private Button     btanularcita , btreprogramar ;
     private DatosCita datosCita = null;
     private int position = -1;
@@ -41,6 +42,10 @@ public class DetalleCitaActivity extends AppCompatActivity {
         tv_nombre_local = (TextView) findViewById(R.id.tv_nombre_local);
         tv_detalle_consulta = (TextView) findViewById(R.id.tv_detalle_consulta);
         tv_l_detalle_consulta = (TextView) findViewById(R.id.tv_l_detalle_consulta);
+
+        tvUser = (TextView) findViewById(R.id.tvUser) ;
+        String nuser = this.getIntent().getStringExtra(MainActivity.ARG_USUARIO);
+        tvUser.setText(nuser);
 
         btanularcita = (Button) findViewById(R.id.btanularcita);
         btreprogramar = (Button) findViewById(R.id.btreprogramar);
@@ -90,7 +95,21 @@ public class DetalleCitaActivity extends AppCompatActivity {
     DialogInterface.OnClickListener alertAcceptCancelAcceptOnClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
-            clinicaService.actualizarCita(datosCita) ;
+            datosCita.setEstado("ANULADA");
+
+            if (clinicaService.anularCita(datosCita) ==true ) {
+                Intent intent = new Intent();
+                intent.putExtra(MainActivity.ARG_DATOS_CITA, datosCita);
+                intent.putExtra(MainActivity.ARG_POSITION, position);
+                setResult(RESULT_OK, intent);
+                finish();
+            }else{
+                Toast.makeText(DetalleCitaActivity.this, "El registro no se puede Anular", Toast.LENGTH_LONG).show();
+            }
+
+
+
+
         }
     };
 

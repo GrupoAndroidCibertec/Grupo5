@@ -66,6 +66,10 @@ public class RVDatosCitasAdapter extends RecyclerView.Adapter<RVDatosCitasAdapte
         return lstDatosCitas!=null?lstDatosCitas.size():0;
     }
 
+    public DatosCita getItem(int index){
+        return lstDatosCitas.get(index);
+    }
+
     public void setNewSource(ArrayList<DatosCita> newLstDatosCitas) {
         lstDatosCitas = newLstDatosCitas;
         notifyDataSetChanged();
