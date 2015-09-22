@@ -50,6 +50,7 @@
     <string name="text_actualizar_usuario">Actualizar</string>
     <string name="title_activity_paciente">PacienteActivity</string>
     <string name="title_activity_reprogramar_cita">ReprogramarCitaActivity</string>
+    <string name="title_activity_map">MapActivity</string>
 
 
 

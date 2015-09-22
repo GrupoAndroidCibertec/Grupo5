@@ -7,6 +7,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCdhNXo26cxtL-e6BZvA4a_a4X8T52KOgM"></meta-data>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
@@ -39,6 +45,18 @@
             android:name=".ReprogramarCitaActivity"
             android:label="@string/title_activity_reprogramar_cita" >
         </activity>
+        <activity
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
     </application>
 
+    <uses-permission android:name="android.permission.internet"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.write_external_storage"></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-feature android:glEsVersion="0x00020000"
+        android:required="true"></uses-feature>
 </manifest>

@@ -454,6 +454,15 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
      * Carga la pantalla de nuestros locales
      */
     private void cargarNuestrosLocales(){
+        int usuario = this.getIntent().getIntExtra("user",0);
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        intent.putExtra("user",usuario);
+        String nusuario=this.getIntent().getStringExtra( ARG_USUARIO );
+
+        intent.putExtra(ARG_USUARIO ,nusuario);
+
+        startActivityForResult(intent, Constantes.REQUEST_ACTUALIZARPACIENTE);
+
 
     }
 
