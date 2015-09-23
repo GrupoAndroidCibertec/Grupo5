@@ -21,6 +21,8 @@ public class CitasDao {
 
     private final String sql_listAll = "select id_cita, id_doctor, id_paciente, (select nombre_espec from especialidad where id_especialidad = d.id_especialidad) nom_especialidad, d.nombre || ' ' || d.apellido nom_doctor, fecha, hora , estado , detalleConsulta , nombrelocal from cita c inner join doctor d on c.id_doctor=d.id_doc inner join local l on l.idlocal = d.idlocal ";
 
+    private String updateCita = "update cita set fecha = ?, hora = ? where id_cita = ?";
+
     private final String orderBy = "order by date(fecha) desc";
 
 
@@ -40,19 +42,22 @@ public class CitasDao {
         Cursor cursor = null;
         DatosCita cita = null;
         ArrayList<DatosCita> lstPersona = new ArrayList<>();
+        String fechaTmp;
         try {
             cursor = DB_Helper.getMyDataBase().rawQuery(query, args);
 
             if (cursor.moveToFirst()) {
                 do {
                     cita = new DatosCita();
-                    cita.setIdCita( cursor.isNull(cursor.getColumnIndex("id_cita")) ? 0 : cursor.getInt(cursor.getColumnIndex("id_cita")));
+                    cita.setIdCita(cursor.isNull(cursor.getColumnIndex("id_cita")) ? 0 : cursor.getInt(cursor.getColumnIndex("id_cita")));
                     cita.setIdDoctor(cursor.isNull(cursor.getColumnIndex("id_doctor")) ? 0 : cursor.getInt(cursor.getColumnIndex("id_doctor")));
                     cita.setIdPaciente(cursor.isNull(cursor.getColumnIndex("id_paciente")) ? 0 : cursor.getInt(cursor.getColumnIndex("id_paciente")));
 
                     cita.setEspecialidad(cursor.isNull(cursor.getColumnIndex("nom_especialidad")) ? "" : cursor.getString(cursor.getColumnIndex("nom_especialidad")));
                     cita.setDoctor(cursor.isNull(cursor.getColumnIndex("nom_doctor")) ? "" : cursor.getString(cursor.getColumnIndex("nom_doctor")));
-                    cita.setFecha(cursor.isNull(cursor.getColumnIndex("fecha")) ? "" : cursor.getString(cursor.getColumnIndex("fecha")));
+                    fechaTmp = cursor.isNull(cursor.getColumnIndex("fecha")) ? "" : cursor.getString(cursor.getColumnIndex("fecha"));
+                    cita.setFecha( cambiarFormatoFecha(fechaTmp, "yyyy-MM-dd", "dd/MM/yyyy") );
+
                     cita.setHora(cursor.isNull(cursor.getColumnIndex("hora")) ? "" : cursor.getString(cursor.getColumnIndex("hora")));
                     cita.setEstado(cursor.isNull(cursor.getColumnIndex("estado")) ? "" : cursor.getString(cursor.getColumnIndex("estado")));
                     cita.setDetalleConsulta(cursor.isNull(cursor.getColumnIndex("detalleConsulta")) ? "" : cursor.getString(cursor.getColumnIndex("detalleConsulta")));
@@ -90,17 +95,10 @@ public class CitasDao {
             if(datosCita.getFecha()!=null && !"".equals(datosCita.getFecha())){
                 Date date = null;
                 String fecha = null;
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                SimpleDateFormat sdfDB = new SimpleDateFormat("yyyy-MM-dd");
 
-                try {
-                    date = sdf.parse(datosCita.getFecha());
-                    fecha = sdfDB.format(date);
+                fecha = cambiarFormatoFecha(datosCita.getFecha(), "dd/MM/yyyy", "yyyy-MM-dd");
 
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if ( fecha!=null ){
+                if ( fecha!=null && !"".equals(fecha)){
                     whereQuery.append("and c.fecha = ? ");
                     params.add(fecha);
                 }
@@ -132,4 +130,34 @@ public class CitasDao {
     }
 
 
+    public void actualizarCita(DatosCita datosCita) {
+
+        Object []args = new Object[3];
+
+        String fecha = cambiarFormatoFecha(datosCita.getFecha(), "dd/MM/yyyy", "yyyy-MM-dd");
+        args[0] = fecha;
+        args[1] = datosCita.getHora();
+        args[2] = datosCita.getIdCita();
+
+        DB_Helper.getMyDataBase().execSQL(updateCita, args);
+    }
+
+    public String cambiarFormatoFecha( String fecha, String originFormat, String finalFormat){
+        String resp = "";
+
+        if (fecha!=null && !"".equals(fecha)){
+            SimpleDateFormat sdfOrigin = new SimpleDateFormat(originFormat);
+            SimpleDateFormat sdfFinal = new SimpleDateFormat(finalFormat);
+
+            try {
+                Date date = sdfOrigin.parse(fecha);
+                resp = sdfFinal.format(date);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return  resp;
+    }
 }

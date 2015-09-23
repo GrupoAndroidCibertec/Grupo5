@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     }
 
     private void configurarFiltroFechas(){
-        Log.d(this.getLocalClassName(), "configurarFiltroFechas");
 
         tvFechaFiltro = (EditText) findViewById( R.id.tvFechaFiltro );
         btFechaFiltro = (ImageButton) findViewById( R.id.btFechaFiltro );

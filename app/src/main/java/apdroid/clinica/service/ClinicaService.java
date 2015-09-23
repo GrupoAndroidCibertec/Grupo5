@@ -66,4 +66,9 @@ public class ClinicaService {
     public boolean actualizarPaciente(Paciente paciente){
         return pacienteDao.actualizarPaciente(paciente) ;
     }
+
+    public void actualizarCita(DatosCita datosCita) {
+        citasDao.actualizarCita(datosCita);
+
+    }
 }

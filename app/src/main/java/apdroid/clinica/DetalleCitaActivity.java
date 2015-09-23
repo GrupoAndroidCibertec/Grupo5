@@ -31,11 +31,12 @@ public class DetalleCitaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_cita);
+        clinicaService = ClinicaService.getSingleton();
         configurarControles();
     }
 
     private void configurarControles(){
-        clinicaService = ClinicaService.getSingleton();
+
         tvNombreEspecialidad = (TextView) findViewById(R.id.tvNombreEspecialidad);
         tv_fecha_hora = (TextView) findViewById(R.id.tv_fecha_hora);
         tvNombreDoctor = (TextView) findViewById(R.id.tvNombreDoctor);
@@ -138,8 +139,18 @@ public class DetalleCitaActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if( requestCode == Constantes.REQUEST_RESERVARCITA ){
+            if( resultCode == RESULT_OK ){
+                datosCita = data.getParcelableExtra(MainActivity.ARG_DATOS_CITA);
 
+                tv_fecha_hora.setText( datosCita.getFecha().concat(" ").concat(datosCita.getHora()) );
 
+            }
+        }
 
+    }
 }
