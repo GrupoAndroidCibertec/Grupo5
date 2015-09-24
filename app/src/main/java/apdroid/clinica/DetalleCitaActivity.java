@@ -25,6 +25,7 @@ public class DetalleCitaActivity extends AppCompatActivity {
     private int position = -1;
 
     private ClinicaService clinicaService;
+    private boolean esReprogramada = false;
 
 
     @Override
@@ -135,7 +136,7 @@ public class DetalleCitaActivity extends AppCompatActivity {
 
         intent.putExtra( MainActivity.ARG_DATOS_CITA, datosCita );
 
-        startActivityForResult(intent, Constantes.REQUEST_RESERVARCITA);
+        startActivityForResult(intent, Constantes.REQUEST_REPROGRAMARCITA);
 
     }
 
@@ -143,14 +144,23 @@ public class DetalleCitaActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if( requestCode == Constantes.REQUEST_RESERVARCITA ){
+        if( requestCode == Constantes.REQUEST_REPROGRAMARCITA ){
             if( resultCode == RESULT_OK ){
                 datosCita = data.getParcelableExtra(MainActivity.ARG_DATOS_CITA);
-
-                tv_fecha_hora.setText( datosCita.getFecha().concat(" ").concat(datosCita.getHora()) );
-
+                tv_fecha_hora.setText(datosCita.getFecha().concat(" ").concat(datosCita.getHora()));
+                esReprogramada = true;
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(MainActivity.ARG_DATOS_CITA, datosCita);
+        intent.putExtra(MainActivity.ARG_POSITION, position);
+        setResult(RESULT_OK, intent);
+
+        super.onBackPressed();
     }
 }

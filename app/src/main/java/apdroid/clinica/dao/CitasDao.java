@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import apdroid.clinica.entidades.DatosCita;
+import apdroid.clinica.util.Utiles;
 
 /**
  * Created by ANTONIO on 12/09/2015.
@@ -56,7 +57,7 @@ public class CitasDao {
                     cita.setEspecialidad(cursor.isNull(cursor.getColumnIndex("nom_especialidad")) ? "" : cursor.getString(cursor.getColumnIndex("nom_especialidad")));
                     cita.setDoctor(cursor.isNull(cursor.getColumnIndex("nom_doctor")) ? "" : cursor.getString(cursor.getColumnIndex("nom_doctor")));
                     fechaTmp = cursor.isNull(cursor.getColumnIndex("fecha")) ? "" : cursor.getString(cursor.getColumnIndex("fecha"));
-                    cita.setFecha( cambiarFormatoFecha(fechaTmp, "yyyy-MM-dd", "dd/MM/yyyy") );
+                    cita.setFecha( Utiles.cambiarFormatoFecha(fechaTmp, "yyyy-MM-dd", "dd/MM/yyyy") );
 
                     cita.setHora(cursor.isNull(cursor.getColumnIndex("hora")) ? "" : cursor.getString(cursor.getColumnIndex("hora")));
                     cita.setEstado(cursor.isNull(cursor.getColumnIndex("estado")) ? "" : cursor.getString(cursor.getColumnIndex("estado")));
@@ -96,7 +97,7 @@ public class CitasDao {
                 Date date = null;
                 String fecha = null;
 
-                fecha = cambiarFormatoFecha(datosCita.getFecha(), "dd/MM/yyyy", "yyyy-MM-dd");
+                fecha = Utiles.cambiarFormatoFecha(datosCita.getFecha(), "dd/MM/yyyy", "yyyy-MM-dd");
 
                 if ( fecha!=null && !"".equals(fecha)){
                     whereQuery.append("and c.fecha = ? ");
@@ -134,7 +135,7 @@ public class CitasDao {
 
         Object []args = new Object[3];
 
-        String fecha = cambiarFormatoFecha(datosCita.getFecha(), "dd/MM/yyyy", "yyyy-MM-dd");
+        String fecha = Utiles.cambiarFormatoFecha(datosCita.getFecha(), "dd/MM/yyyy", "yyyy-MM-dd");
         args[0] = fecha;
         args[1] = datosCita.getHora();
         args[2] = datosCita.getIdCita();
@@ -142,22 +143,5 @@ public class CitasDao {
         DB_Helper.getMyDataBase().execSQL(updateCita, args);
     }
 
-    public String cambiarFormatoFecha( String fecha, String originFormat, String finalFormat){
-        String resp = "";
 
-        if (fecha!=null && !"".equals(fecha)){
-            SimpleDateFormat sdfOrigin = new SimpleDateFormat(originFormat);
-            SimpleDateFormat sdfFinal = new SimpleDateFormat(finalFormat);
-
-            try {
-                Date date = sdfOrigin.parse(fecha);
-                resp = sdfFinal.format(date);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return  resp;
-    }
 }

@@ -10,16 +10,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import apdroid.clinica.entidades.DatosCita;
+import apdroid.clinica.util.Constantes;
 
 public class LoginActivity extends AppCompatActivity {
 
     public SharedPreferences sp;
     private EditText etUser, etPass;
     private Button btIngresar;
-    private final String ARG_USER="arg_user";
-    private final String ARG_PASS="arg_pass";
-    private final String ARG_NUSER="arg_pass";
-    private final String ARG_NOMBRE="arg_nombre";
+
 
 
 
@@ -62,10 +60,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 SharedPreferences.Editor spe = sp.edit();
-                spe.putString(ARG_USER, user);
-                spe.putString(ARG_PASS, pass);
-                spe.putInt(ARG_NUSER, nUser);
-                spe.putString(ARG_NOMBRE, nya);
+                spe.putString(Constantes.ARG_USER, user);
+                spe.putString(Constantes.ARG_PASS, pass);
+                spe.putInt(Constantes.ARG_NUSER, nUser);
+                spe.putString(Constantes.ARG_NOMBRE, nya);
                 spe.commit();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -100,9 +98,9 @@ public class LoginActivity extends AppCompatActivity {
 
         sp = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 
-        if (sp.contains(ARG_USER)
-                && sp.contains(ARG_NUSER)
-                && sp.contains(ARG_PASS)
+        if (sp.contains(Constantes.ARG_USER)
+                && sp.contains(Constantes.ARG_NUSER)
+                && sp.contains(Constantes.ARG_PASS)
          //       && !sp.getString(ARG_USER, "").isEmpty()
         //        && !sp.getString(ARG_PASS, "").isEmpty()
             )
@@ -110,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             //DatosCita datosPersona = new DatosCita();
             //datosPersona.setNombre(sp.getString(ARG_NOMBRE,""));
-            intent.putExtra(MainActivity.ARG_USUARIO, sp.getString(ARG_NOMBRE,"Default"));
+            intent.putExtra(MainActivity.ARG_USUARIO, sp.getString(Constantes.ARG_NOMBRE,"Default"));
             //intent.putExtra("user",sp.getInt(ARG_NUSER,0));
             //intent.putExtra("datosper",datosPersona);
             startActivity(intent);

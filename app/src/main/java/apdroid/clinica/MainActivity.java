@@ -415,6 +415,8 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
                 if (position != -1) {
                     DatosCita old =  rvDatosCitasAdapter.getItem(position);
                     old.setEstado(datosCita.getEstado());
+                    old.setFecha(datosCita.getFecha());
+                    old.setHora(datosCita.getHora());
                     rvDatosCitasAdapter.notifyDataSetChanged();
 
                 }

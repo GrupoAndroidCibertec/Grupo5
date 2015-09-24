@@ -27,6 +27,8 @@ import java.util.Locale;
 
 import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.service.ClinicaService;
+import apdroid.clinica.util.Constantes;
+import apdroid.clinica.util.Utiles;
 
 public class ReprogramarCitaActivity extends AppCompatActivity {
 
@@ -41,6 +43,7 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
     private ArrayAdapter<String> aaHorario;
 
     private Button btReservCita;
+    private TextView tvUser;
     private ClinicaService clinicaService;
 
 
@@ -99,6 +102,9 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
                 reprogramarCita();
             }
         });
+
+        tvUser = (TextView)findViewById(R.id.tvUser);
+        tvUser.setText(Utiles.obtenerValorSharedPreference(ReprogramarCitaActivity.this, Constantes.ARG_NOMBRE));
 
     }
 
