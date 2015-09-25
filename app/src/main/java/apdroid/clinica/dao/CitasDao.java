@@ -24,6 +24,8 @@ public class CitasDao {
 
     private String updateCita = "update cita set fecha = ?, hora = ? where id_cita = ?";
 
+    private String nuevaCita = "INSERT INTO `Cita`(`id_doctor`,`id_paciente`,`fecha`,`hora`,`estado`,`detalleConsulta`) VALUES (?,?,?,?,?,?)";
+
     private final String orderBy = "order by date(fecha) desc";
 
 
@@ -147,6 +149,21 @@ public class CitasDao {
         args[2] = datosCita.getIdCita();
 
         DB_Helper.getMyDataBase().execSQL(updateCita, args);
+    }
+
+    public void nueaCita(DatosCita datosCita) {
+
+        Object []args = new Object[6];
+
+        String fecha = Utiles.cambiarFormatoFecha(datosCita.getFecha(), "dd/MM/yyyy", "yyyy-MM-dd");
+        args[0] = datosCita.getIdDoctor();
+        args[1] = datosCita.getIdPaciente();
+        args[2] = datosCita.getFecha();
+        args[3] = datosCita.getHora();
+        args[4] = datosCita.getEstado();
+        args[5] = datosCita.getDetalleConsulta();
+
+        DB_Helper.getMyDataBase().execSQL(nuevaCita, args);
     }
 
 

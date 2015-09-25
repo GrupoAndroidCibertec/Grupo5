@@ -391,10 +391,10 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
                 Toast.makeText(this,dataOAR.getEspecialidad().toString(),Toast.LENGTH_LONG).show();
                 Toast.makeText(this,dataOAR.getFecha().toString(),Toast.LENGTH_LONG).show();
                 Toast.makeText(this,dataOAR.getDoctor().toString(),Toast.LENGTH_LONG).show();
-                Toast.makeText(this,dataOAR.getHora().toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(this,dataOAR.getHora().toString(),Toast.LENGTH_LONG).show();
 
             }else if(resultCode==RESULT_CANCELED){
-                Toast.makeText(this,"Canceled",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Cancelado",Toast.LENGTH_LONG).show();
             }
 
         }else if( requestCode == Constantes.REQUEST_DETALLECITA ) {

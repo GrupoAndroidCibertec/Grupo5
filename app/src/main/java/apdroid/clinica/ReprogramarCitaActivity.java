@@ -164,6 +164,30 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
         }
     }
 
+//    private void nuevaCita(){
+//
+//            Intent intent= new Intent();
+//
+//            datosCita.setFecha( etFecha.getText().toString() );
+//            datosCita.setHora((String) sp.getSelectedItem());
+//
+//            intent.putExtra(MainActivity.ARG_DATOS_CITA, datosCita);
+//
+//            clinicaService.actualizarCita(datosCita);
+//
+//            setResult(RESULT_OK, intent);
+//            finish();
+//
+//
+//    }
+
+
+
+
+
+
+
+
     private boolean validarReprogramar(){
         boolean resp = true;
 

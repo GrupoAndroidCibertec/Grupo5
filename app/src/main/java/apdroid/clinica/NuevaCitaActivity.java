@@ -88,6 +88,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
     private void configSpDoctor(){
 
         spDoctor= (Spinner)findViewById(R.id.spDoctor);
+        spDoctor.setOnItemSelectedListener(spDocOnItemSelectedListener);
 
 
 
@@ -102,6 +103,53 @@ public class NuevaCitaActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
+    //<editor-fold desc="Doc Seleccionado">
+    String docSel;
+
+    AdapterView.OnItemSelectedListener spDocOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            switch (position){
+                case 0:
+                    docSel="Esperanza";
+                    break;
+                case 1:
+                    docSel="Aldo";
+                    break;
+                case 2:
+                    docSel="Pedro";
+                    break;
+                case 3:
+                    docSel="Ruth";
+                    break;
+                case 4:
+                    docSel="Aria";
+                    break;
+                case 5:
+                    docSel="Minerva";
+                    break;
+                case 6:
+                    docSel="Laura";
+                    break;
+                case 7:
+                    docSel="Marla";
+                    break;
+                case 8:
+                    docSel="Margarita";
+                    break;
+                case 9:
+                    docSel="Rita";
+                    break;
+
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+    //</editor-fold>
 
     //<editor-fold ref">
     //    private void activeSpinner(String selection) {
@@ -124,12 +172,34 @@ public class NuevaCitaActivity extends AppCompatActivity {
     //</editor-fold>
 
     //<editor-fold desc=" Select - Especialidad">
+
+    String espSel;
+
     AdapterView.OnItemSelectedListener spEspOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
 
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+            switch (position){
+                case 1:
+                    espSel="Cardiologia";
+                    break;
+                case 2:
+                    espSel="Odontologia";
+                    break;
+                case 3:
+                    espSel="Medicina General";
+                    break;
+                case 4:
+                    espSel="Pediatría";
+                    break;
+                case 5:
+                    espSel="Geriatría";
+                    break;
+                case 6:
+                    espSel="Gastroenterología";
+                    break;
+            }
         }
 
         @Override
@@ -228,22 +298,63 @@ public class NuevaCitaActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
-
     //<editor-fold desc="Config Button Reservar Cita">
     private Button btReservCita;
+    private DatosCita datosCita;
 
     private void configBtReservarCita() {
         btReservCita = (Button) findViewById(R.id.btReservCita);
         btReservCita.setOnClickListener(btReservCitaOnClickListener);
     }
 
+
+
     View.OnClickListener btReservCitaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
+            Intent resultIntent=new Intent();
+            DatosCita data=new DatosCita();
 
-            Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+            data.setEspecialidad(espSel);
+            data.setDoctor(docSel);
+//            tvFecha.setText(formatoFecha.format(calendario.getTime()));
+            data.setFecha(tvFecha.getText().toString());
+            data.setDetalleConsulta("Detalle");
+            data.setEstado("Estado");
+            data.setHora("Hora");
+            data.setIdCita(5);
+            data.setIdDoctor(3);
+            data.setIdEspecialidad(2);
+            data.setIdPaciente(1);
+//            data.setDoctor(tvUser.getText().toString());
+//            data.setFecha(tvFecha.getText().toString());
+//            data.setDoctor(spDoctor.getSelectedItem().toString());
+//            data.setHora(spHorario.getSelectedItem().toString());
+            resultIntent.putExtra("data", data);
+            setResult(RESULT_OK, resultIntent);
+            //Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
             finish();
+
+
+
+            //Intent intent= new Intent();
+            //datosCita.setFecha(tvFecha.getText().toString());
+            //datosCita.setHora((String) spHorario.getSelectedItem());
+            //datosCita.setEspecialidad((String) spEspecialidad.getSelectedItem());
+            //datosCita.setDoctor((String) spDoctor.getSelectedItem());
+
+            //intent.putExtra(MainActivity.ARG_DATOS_CITA, datosCita);
+
+            //clinicaService.nuevaCita(datosCita);
+
+//            setResult(RESULT_OK, intent);
+//            finish();
+
+
+
+            //Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+
 
         }
     };

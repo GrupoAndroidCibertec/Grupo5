@@ -94,4 +94,11 @@ public class ClinicaService {
         citasDao.actualizarCita(datosCita);
 
     }
+
+    public void nuevaCita(DatosCita datosCita) {
+        citasDao.nueaCita(datosCita);
+
+    }
+
+
 }
