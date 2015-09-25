@@ -35,6 +35,9 @@ public class NuevaCitaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nuevacita);
 
         configSpEspecialidad();
+        configCalendar();
+
+        configUser();
 
 
 
@@ -43,6 +46,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
 
 
+    //<editor-fold desc="Config Spinner - Especialidad">
     private Spinner spEspecialidad;
     private ClinicaService clinicaService;
     private SPEspecialidadAdapter spEspecialidadAdapter;
@@ -60,6 +64,26 @@ public class NuevaCitaActivity extends AppCompatActivity {
         spEspecialidad.setAdapter(spEspecialidadAdapter);
 
     }
+    //</editor-fold>
+
+    private void configCalendar(){
+
+
+
+    }
+
+    //<editor-fold desc="Config - USER">
+    private TextView tvUser;
+
+    private void configUser(){
+
+        tvUser= (TextView) findViewById(R.id.tvUser);
+
+        String nuser = this.getIntent().getStringExtra(MainActivity.ARG_USUARIO);
+        tvUser.setText(nuser);
+
+    }
+    //</editor-fold>
 
 
 }
