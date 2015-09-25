@@ -19,86 +19,71 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import apdroid.clinica.adapter.spinner.SPEspecialidadAdapter;
 import apdroid.clinica.entidades.DatosCita;
+import apdroid.clinica.entidades.Especialidad;
+import apdroid.clinica.service.ClinicaService;
 
 /**
  * Created by AngeloPaulo on 01/septiembre/2015.
  */
 public class NuevaCitaActivity extends AppCompatActivity {
 
-    ArrayAdapter<String> aaEspecialidad, aaDoctor, aaHorario, aaClear;
-    String[] opEspecialidad = new String[]{"Cardiologia", "Reumatologia", "Oftalmologia"};
-    String[] opDoctor = new String[]{"Dra.Alvarez", "Dr.Vera", "Dr.Stegui"};
-    String[] opHorario = null;//new String[]{"8:00-9:00", "9:00-10:00", "10:00-11:00"};
-    String[] opClear = new String[0];
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_nuevacita);
+
+        configSpEspecialidad();
+        configCalendar();
+
+        configUser();
+
+
+
+
+    }
+
+
+
+    //<editor-fold desc="Config Spinner - Especialidad">
+    private Spinner spEspecialidad;
+    private ClinicaService clinicaService;
+    private SPEspecialidadAdapter spEspecialidadAdapter;
+
+    private void configSpEspecialidad(){
+
+        spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
+        clinicaService = ClinicaService.getSingleton();
+        //spEspecialidad.setOnItemSelectedListener(spEspOnItemSelectedListener);
+
+        ArrayList<Especialidad> listEspec = clinicaService.listarEspecialidades();
+        ArrayList<Especialidad> lstSpinner = new ArrayList<>(listEspec);
+        lstSpinner.add(0, new Especialidad(-1, "<Seleccione Especialidad>") );
+        spEspecialidadAdapter = new SPEspecialidadAdapter(this, lstSpinner);
+        spEspecialidad.setAdapter(spEspecialidadAdapter);
+
+    }
+    //</editor-fold>
+
+
+
+    //<editor-fold desc="Config Calendar">
+    private SimpleDateFormat formatoFecha;
+    private ImageButton btCalendar;
+    private TextView tvFecha;
     Calendar calendario = Calendar.getInstance();
 
-    //<editor-fold desc="Spinner Especialidad">
-    AdapterView.OnItemSelectedListener spEspOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (position) {
-                case 0:
-                    spDoctor.setAdapter(aaDoctor);
-                    break;
-                case 1:
-                    spDoctor.setAdapter(aaClear);
-                    break;
-                case 2:
-                    spDoctor.setAdapter(aaClear);
-                    break;
+    private void configCalendar(){
 
-            }
+        tvFecha = (TextView) findViewById(R.id.etFecha);
+        btCalendar = (ImageButton) findViewById(R.id.btCal);
 
+        btCalendar.setOnClickListener(btCalendarOnClickListener);
+        tvFecha.setOnClickListener(tvFechaOnClickListener);
 
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
-    //</editor-fold>
-
-    //<editor-fold desc="Spinner Doctor">
-    AdapterView.OnItemSelectedListener spDoctorOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (position) {
-                case 0:
-                    spHorario.setAdapter(aaHorario);
-                    break;
-                case 1:
-                    spHorario.setAdapter(aaClear);
-                    break;
-                case 2:
-                    spHorario.setAdapter(aaClear);
-                    break;
-
-            }
-
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-            spHorario.setAdapter(aaClear);
-
-        }
-    };
-    //</editor-fold>
-
-
-    //private EditText etFecha;
-    private TextView tvFecha, tvUser;
-    private ImageButton btCalendar;
-    private Spinner spEspecialidad, spDoctor, spHorario;
-    private ArrayList<DatosCita> datosCitas;
-    private Button btReservCita;
-    //DateFormat formatoFecha=DateFormat.getDateInstance();
-
-    //<editor-fold desc="DatePicker">
-    private SimpleDateFormat formatoFecha;
+        formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+    }
 
     DatePickerDialog.OnDateSetListener dpFechaOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -128,10 +113,6 @@ public class NuevaCitaActivity extends AppCompatActivity {
         }
     };
 
-    //--------------------------------------------------------------------------------------------
-    //  CALENDAR   -------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------
-    // Para Visualizar la Fecha en el Edit Text
     public void updateFecha() {
         tvFecha.setText(formatoFecha.format(calendario.getTime()));
 
@@ -142,70 +123,20 @@ public class NuevaCitaActivity extends AppCompatActivity {
                 calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH),
                 calendario.get(Calendar.DAY_OF_MONTH)).show();
     }
-    //--------------------------------------------------------------------------------------------
-    //  CALENDAR   -------------------------------------------------------------------------------
-    //-------------------------------------------------------------------------------------------
     //</editor-fold>
 
+    //<editor-fold desc="Config - USER">
+    private TextView tvUser;
 
+    private void configUser(){
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevacita);
-
-        //etFecha=(EditText)findViewById(R.id.etFecha);
         tvUser= (TextView) findViewById(R.id.tvUser);
-        tvFecha = (TextView) findViewById(R.id.etFecha);
-        btCalendar = (ImageButton) findViewById(R.id.btCal);
-        spEspecialidad = (Spinner) findViewById(R.id.spEspecialidad);
-        spDoctor = (Spinner) findViewById(R.id.spDoctor);
-        spHorario = (Spinner) findViewById(R.id.spHorario);
-        btReservCita=(Button)findViewById(R.id.btReservCita);
-
-
-        spEspecialidad.setOnItemSelectedListener(spEspOnItemSelectedListener);
-        spDoctor.setOnItemSelectedListener(spDoctorOnItemSelectedListener);
-        btCalendar.setOnClickListener(btCalendarOnClickListener);
-        tvFecha.setOnClickListener(tvFechaOnClickListener);
-        btReservCita.setOnClickListener(btReservCitaOnClickListener);
-
-
-        formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
-        opHorario = getResources().getStringArray(R.array.ListaHorarios);
-        aaEspecialidad = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, opEspecialidad);
-        aaDoctor = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, opDoctor);
-        aaHorario = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, opHorario);
-        aaClear = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, opClear);
-
-        spEspecialidad.setAdapter(aaEspecialidad);
-
-
 
         String nuser = this.getIntent().getStringExtra(MainActivity.ARG_USUARIO);
         tvUser.setText(nuser);
 
-        
     }
-
-    View.OnClickListener btReservCitaOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            Intent resultIntent=new Intent();
-            DatosCita data=new DatosCita();
-            data.setEspecialidad(spEspecialidad.getSelectedItem().toString());
-            data.setDoctor(tvUser.getText().toString());
-            data.setFecha(tvFecha.getText().toString());
-            data.setDoctor(spDoctor.getSelectedItem().toString());
-            data.setHora(spHorario.getSelectedItem().toString());
-            resultIntent.putExtra("data", data);
-            setResult(RESULT_OK, resultIntent);
-            Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
-            finish();
-
-
-        }
-    };
+    //</editor-fold>
 
 
 }

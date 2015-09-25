@@ -5,9 +5,11 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import apdroid.clinica.dao.CitasDao;
+import apdroid.clinica.dao.DoctorDao;
 import apdroid.clinica.dao.EspecialidadDao;
 import apdroid.clinica.dao.PacienteDao;
 import apdroid.clinica.entidades.DatosCita;
+import apdroid.clinica.entidades.Doctor;
 import apdroid.clinica.entidades.Especialidad;
 import apdroid.clinica.entidades.Paciente;
 
@@ -21,10 +23,12 @@ public class ClinicaService {
     private EspecialidadDao especialidadDao;
     private CitasDao citasDao;
     private PacienteDao pacienteDao;
+    private DoctorDao doctorDao;
 
 
     private ClinicaService(){
         especialidadDao = EspecialidadDao.getSingleton();
+        doctorDao =DoctorDao.getSingleton();
         citasDao = CitasDao.getSingleton();
         pacienteDao =PacienteDao.getSingleton();
 
@@ -45,6 +49,19 @@ public class ClinicaService {
 
         return lstEspecialidadCache;
     }
+
+    public ArrayList<Doctor> listarDoctores(){
+        ArrayList<Doctor> lstDoctorCache = null;
+        lstDoctorCache = doctorDao.listarDoctores();
+
+        return lstDoctorCache;
+    }
+
+
+
+
+
+
 
 
     public ArrayList<DatosCita> filtrarCitas(DatosCita datosCita){
