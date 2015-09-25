@@ -16,7 +16,7 @@
     <style name="spNA" parent="Widget.AppCompat.Spinner">
         <!--<item name="android:background">#FFFFFF</item>-->
         <item name="android:textSize">18sp</item>
-        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_width">200dp</item>
         <item name="android:layout_height">25dp</item>
         <item name="android:gravity">center</item>
     </style>
