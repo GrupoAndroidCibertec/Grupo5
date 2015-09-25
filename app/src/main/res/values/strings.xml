@@ -52,7 +52,10 @@
     <string name="title_activity_reprogramar_cita">ReprogramarCitaActivity</string>
     <string name="title_activity_map">MapActivity</string>
 
-
+    <string name="lb_validacion_nombres">Ingrese sus Nombres</string>
+    <string name="lb_validacion_apellidos">Ingrese sus Apellidos</string>
+    <string name="lb_validacion_dni">Ingrese DNI correctamente</string>
+    <string name="lb_validacion_correo">Ingrese sus Correo</string>
 
 
 </resources>

@@ -52,8 +52,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margens5"
                 android:id="@+id/edNombres"
-                />
+                android:inputType="text"
 
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:layout_marginLeft="@dimen/margens5"
+                android:id="@+id/tvNombres"
+                android:inputType="text"
+                android:text=""
+                android:textSize="12dp"
+                android:textColor="@color/ColorRed"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -73,6 +84,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margens5"
                 android:id="@+id/edApellidos"
+                android:inputType="text"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:layout_marginLeft="@dimen/margens5"
+                android:id="@+id/tvApellidos"
+                android:inputType="text"
+                android:text=""
+                android:textSize="12dp"
+                android:textColor="@color/ColorRed"
                 />
 
         </LinearLayout>
@@ -95,6 +117,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margens5"
                 android:id="@+id/edDNI"
+                android:inputType="number"
+                android:maxLength="8"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:layout_marginLeft="@dimen/margens5"
+                android:id="@+id/tvDni"
+                android:inputType="text"
+                android:text=""
+                android:textSize="12dp"
+                android:textColor="@color/ColorRed"
                 />
 
         </LinearLayout>
@@ -115,8 +149,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margens5"
                 android:id="@+id/edCorreo"
+                android:inputType="textEmailAddress"
                 />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:layout_marginLeft="@dimen/margens5"
+                android:id="@+id/tvCorreo"
+                android:inputType="text"
+                android:text=""
+                android:textSize="12dp"
+                android:textColor="@color/ColorRed"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

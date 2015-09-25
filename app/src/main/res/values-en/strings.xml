@@ -51,6 +51,10 @@
     <string name="title_activity_paciente">PacienteActivity</string>
     <string name="title_activity_reprogramar_cita">ReprogramarCitaActivity</string>
 
+    <string name="lb_validacion_nombres">Enter your Names</string>
+    <string name="lb_validacion_apellidos">Enter your Lastnames</string>
+    <string name="lb_validacion_dni">Enter your correct DNI</string>
+    <string name="lb_validacion_correo">Enter your Email</string>
 
 
 
