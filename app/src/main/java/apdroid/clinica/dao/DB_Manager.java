@@ -1,6 +1,7 @@
 package apdroid.clinica.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -40,4 +41,17 @@ public class DB_Manager {
         helper= new DB_Helper(context);
         db=helper.getReadableDatabase();
     }
+
+    public Cursor buscarDoctores(String idesp){
+
+        if(idesp=="0"){
+            idesp="1";
+        }
+
+        String[] columnas=new String[]{"nombre","apellido"};
+        return db.query("Doctor",columnas," id_especialidad=?", new String[]{idesp},null,null,null);
+
+
+    }
+
 }

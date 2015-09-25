@@ -57,6 +57,12 @@ public class ClinicaService {
         return lstDoctorCache;
     }
 
+//    public ArrayList<Doctor> listarDoctoresEsp(String esp){
+//        ArrayList<Doctor> lstDoctorCache = null;
+//        lstDoctorCache = doctorDao.listarDoctoresEsp(esp);
+//
+//        return lstDoctorCache;
+//    }
 
 
 
