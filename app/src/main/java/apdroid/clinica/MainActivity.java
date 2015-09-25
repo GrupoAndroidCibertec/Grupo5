@@ -72,9 +72,6 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
     private ClinicaService clinicaService;
 
-    public MainActivity() {
-        Log.d("MainActivity", "Constructor");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
         if(spEspecialidadAdapter == null){
 
             ArrayList<Especialidad> lstSpinner = new ArrayList<>(listEspec);
-            lstSpinner.add(0, new Especialidad(-1, "<Seleccione Especialidad>") );
+            lstSpinner.add(0, new Especialidad(-1, getResources().getString(R.string.text_selec_especialidad) ));
             spEspecialidadAdapter = new SPEspecialidadAdapter(this, lstSpinner);
             spEspecialidad.setAdapter(spEspecialidadAdapter);
         }
@@ -194,12 +191,12 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     }
 
     private void configurarDatePicker(){
-        Log.d(this.getLocalClassName(), "configurarDatePicker");
+
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, dpetOnDateSetListener,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setCalendarViewShown(false);
-        datePickerDialog.setTitle("Fecha de Cita");
+        datePickerDialog.setTitle(getResources().getString(R.string.text_titulo_dp_fecha));
         //datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
         datePickerDialog.show();
     }

@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#F5F5DC"
-                    android:text="Especialidad:" />
+                    android:text="@string/text_especialidad" />
 
                 <TextView
                     android:id="@+id/tvEspecialidad"
@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="Doctor:" />
+                    android:text="@string/text_doctor" />
 
                 <TextView
                     android:id="@+id/tvDoctor"
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:text="Fecha:" />
+                    android:text="@string/text_fecha" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:background="#F5F5DC"
                     android:inputType="none"
-                    android:text="Horario:" />
+                    android:text="@string/text_hora" />
 
                 <Spinner
                     android:id="@+id/spHorarioReprog"

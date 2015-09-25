@@ -12,10 +12,10 @@
     <string name="title_activity_main">SISTEMA DE CITAS</string>
 
     <string-array name="Tags">
-        <item>Nueva Cita</item>
-        <item>Mi Cuenta</item>
-        <item>Nuestros Locales</item>
-        <item>Salir</item>
+        <item>New Date</item>
+        <item>My Profile</item>
+        <item>Our Locals</item>
+        <item>Exit</item>
     </string-array>
 
     <string-array name="ListaHorarios">
@@ -38,6 +38,8 @@
 
     <string name="text_especialidad">Specialty</string>
     <string name="text_fecha_hora">Date and Time</string>
+    <string name="text_fecha">Date</string>
+    <string name="text_hora">Hour</string>
     <string name="text_doctor">Doctor</string>
     <string name="text_local">Location</string>
     <string name="text_detalle">Detail of Attention</string>
@@ -50,12 +52,15 @@
     <string name="text_actualizar_usuario">Update</string>
     <string name="title_activity_paciente">PacienteActivity</string>
     <string name="title_activity_reprogramar_cita">ReprogramarCitaActivity</string>
+    <string name="text_btn_reprogramar">RESCHEDULE APPOINTMENT</string>
+    <string name="text_btn_anular">CANCEL CITA</string>
 
     <string name="lb_validacion_nombres">Enter your Names</string>
     <string name="lb_validacion_apellidos">Enter your Lastnames</string>
     <string name="lb_validacion_dni">Enter your correct DNI</string>
     <string name="lb_validacion_correo">Enter your Email</string>
 
-
+    <string name="text_selec_especialidad">&lt;Select Specility&gt;</string>
+    <string name="text_titulo_dp_fecha">Appointment Date</string>
 
 </resources>

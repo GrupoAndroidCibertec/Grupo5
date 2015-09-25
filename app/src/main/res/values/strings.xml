@@ -38,6 +38,8 @@
 
     <string name="text_especialidad">Especialidad</string>
     <string name="text_fecha_hora">Fecha y Hora</string>
+    <string name="text_fecha">Fecha</string>
+    <string name="text_hora">Hora</string>
     <string name="text_doctor">Doctor</string>
     <string name="text_local">Local</string>
     <string name="text_detalle">Detalle de la  Consulta</string>
@@ -51,11 +53,15 @@
     <string name="title_activity_paciente">PacienteActivity</string>
     <string name="title_activity_reprogramar_cita">ReprogramarCitaActivity</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="text_btn_reprogramar">REPROGRAMAR CITA</string>
+    <string name="text_btn_anular">ANULAR CITA</string>
 
     <string name="lb_validacion_nombres">Ingrese sus Nombres</string>
     <string name="lb_validacion_apellidos">Ingrese sus Apellidos</string>
     <string name="lb_validacion_dni">Ingrese DNI correctamente</string>
     <string name="lb_validacion_correo">Ingrese sus Correo</string>
 
+    <string name="text_selec_especialidad">&lt;Seleccione Especialidad&gt;</string>
+    <string name="text_titulo_dp_fecha">Fecha de Cita</string>
 
 </resources>
