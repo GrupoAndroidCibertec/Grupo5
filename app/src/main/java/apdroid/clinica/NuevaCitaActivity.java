@@ -111,34 +111,34 @@ public class NuevaCitaActivity extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             switch (position){
                 case 0:
-                    docSel="Esperanza";
+                    docSel="Esperanza Mucha";
                     break;
                 case 1:
-                    docSel="Aldo";
+                    docSel="Aldo Cortez";
                     break;
                 case 2:
-                    docSel="Pedro";
+                    docSel="Pedro Villa";
                     break;
                 case 3:
-                    docSel="Ruth";
+                    docSel="Ruth Mistral";
                     break;
                 case 4:
-                    docSel="Aria";
+                    docSel="Aria Vega";
                     break;
                 case 5:
-                    docSel="Minerva";
+                    docSel="Minerva Rosales";
                     break;
                 case 6:
-                    docSel="Laura";
+                    docSel="Laura Yamashita";
                     break;
                 case 7:
-                    docSel="Marla";
+                    docSel="Marla Rivas";
                     break;
                 case 8:
-                    docSel="Margarita";
+                    docSel="Margarita Rojas";
                     break;
                 case 9:
-                    docSel="Rita";
+                    docSel="Rita Bernaola";
                     break;
 
             }
@@ -218,6 +218,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
     private void configSpHorario(){
 
         spHorario= (Spinner)findViewById(R.id.spHorario);
+        spHorario.setOnItemSelectedListener(spHoraOnItemSelectedListener);
         ArrayList<Doctor> listDoc = clinicaService.listarDoctores();
 
         ArrayList<Doctor> lstSpinnerDoc = new ArrayList<>(listDoc);
@@ -226,6 +227,56 @@ public class NuevaCitaActivity extends AppCompatActivity {
         spHorario.setAdapter(spHorarioAdapter);
 
     }
+    //</editor-fold>
+
+    //<editor-fold desc="Hora Selected">
+    private String hora;
+
+    AdapterView.OnItemSelectedListener spHoraOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            switch (position) {
+                case 0:
+                    hora = "08:00-09:00";
+                    break;
+                case 1:
+                    hora = "09:00-10:00";
+                    break;
+                case 2:
+                    hora = "10:00-11:00";
+                    break;
+                case 3:
+                    hora = "11:00-12:00";
+                    break;
+                case 4:
+                    hora = "12:00-13:00";
+                    break;
+                case 5:
+                    hora = "13:00-14:00";
+                    break;
+                case 6:
+                    hora = "14:00-15:00";
+                    break;
+                case 7:
+                    hora = "15:00-16:00";
+                    break;
+                case 8:
+                    hora = "16:00-17:00";
+                    break;
+                case 9:
+                    hora = "17:00-18:00";
+                    break;
+            }
+
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
     //</editor-fold>
 
     //<editor-fold desc="Config Calendar">
@@ -322,18 +373,14 @@ public class NuevaCitaActivity extends AppCompatActivity {
             data.setFecha(tvFecha.getText().toString());
             data.setDetalleConsulta("Detalle");
             data.setEstado("Estado");
-            data.setHora("Hora");
+            data.setHora(hora);
             data.setIdCita(5);
             data.setIdDoctor(3);
             data.setIdEspecialidad(2);
             data.setIdPaciente(1);
-//            data.setDoctor(tvUser.getText().toString());
-//            data.setFecha(tvFecha.getText().toString());
-//            data.setDoctor(spDoctor.getSelectedItem().toString());
-//            data.setHora(spHorario.getSelectedItem().toString());
             resultIntent.putExtra("data", data);
             setResult(RESULT_OK, resultIntent);
-            //Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
             finish();
 
 
