@@ -396,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
                 int position = data.getIntExtra(ARG_POSITION, -1)+1;
                 //
                     DatosCita nuevo = rvDatosCitasAdapter.getItem(position);
-                    nuevo.setEstado(dataOAR.getEstado());
+                    nuevo.setEstado("PROGRAMADO");
                     nuevo.setEspecialidad(dataOAR.getEspecialidad());
                     nuevo.setDoctor(dataOAR.getDoctor());
                     nuevo.setFecha(dataOAR.getFecha());
