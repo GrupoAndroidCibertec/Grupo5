@@ -45,6 +45,7 @@ import apdroid.clinica.entidades.Paciente;
 import apdroid.clinica.service.ClinicaService;
 import apdroid.clinica.util.Constantes;
 import apdroid.clinica.util.Idioma;
+import apdroid.clinica.util.Utiles;
 
 /**
  * Clase para la pantalla principal despues del Login
@@ -57,8 +58,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     private Toolbar toolbar; //Declarando toolbar
 
     private String[] tagTitles;
-    private CharSequence activityTitle;
-    private CharSequence itemTitle;
+
 
 
     private Spinner spEspecialidad;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("ONCreate", "oncreate");
+
         setContentView(R.layout.activity_main);
         DB_Helper manager= new DB_Helper(this);
         try {
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     }
 
     private void configurarControles(){
-        configurarFiltroFechas();
+
 
         spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
 
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
         rvDatosCitasAdapter = new RVDatosCitasAdapter(MainActivity.this);
         lstDatosCitas.setAdapter(rvDatosCitasAdapter);
 
-
+        configurarFiltroFechas();
     }
 
     private void configurarFiltroFechas(){
@@ -217,18 +217,6 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
     };
 
 
-    private void filtrarCitas(){
-        String fecha = tvFechaFiltro.getText().toString();
-        Especialidad especialidad = (Especialidad)spEspecialidad.getSelectedItem();
-
-        ArrayList<DatosCita> listaCitas = null;
-        DatosCita datosCita = new DatosCita();
-        datosCita.setIdEspecialidad( especialidad.getIdEspecialidad() );
-        datosCita.setFecha(fecha);
-
-        listaCitas = clinicaService.filtrarCitas(datosCita);
-        rvDatosCitasAdapter.setNewSource(listaCitas);
-    }
 
     private void configurarMenu(Bundle savedInstanceState){
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -237,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
 
         tagTitles = getResources().getStringArray(R.array.Tags);
-        itemTitle = activityTitle = getTitle();
+
 
         //setear toolbar
         toolbar.dismissPopupMenus();
@@ -253,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
         items.add(new DrawerItem(tagTitles[0], R.drawable.ic_nuevacita));
         items.add(new DrawerItem(tagTitles[1], R.drawable.ic_micuenta));
         items.add(new DrawerItem(tagTitles[2], R.drawable.ic_locales));
-        items.add(new DrawerItem(tagTitles[3], R.drawable.ic_locales));
+        items.add(new DrawerItem(tagTitles[3], R.drawable.ic_salir));
 
         //Creamos adaptador y seteamos al Drawerlist
         drawerList.setAdapter(new DrawerListAdapter(this, items));
@@ -272,21 +260,34 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
         // Crear ActionBarDrawerToggle para la apertura y cierre
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close ) {
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(itemTitle);
+                getSupportActionBar().setTitle(getTitle());
             }
 
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(activityTitle);
+                getSupportActionBar().setTitle(getTitle());
             }
         };
         //Seteamos la escucha al drawer layout
         drawerLayout.setDrawerListener(drawerToggle);
-
-
-//        if (savedInstanceState == null) {
-//            selectItem(0);
-//        }
     }
+
+    private void filtrarCitas(){
+        int idPaciente = -1;
+        idPaciente = Utiles.obtenerValorSharedPreferenceInt(this, Constantes.ARG_NUSER) ;
+        String fecha = tvFechaFiltro.getText().toString();
+        Especialidad especialidad = (Especialidad)spEspecialidad.getSelectedItem();
+
+        ArrayList<DatosCita> listaCitas = null;
+        DatosCita datosCita = new DatosCita();
+        datosCita.setIdEspecialidad( especialidad.getIdEspecialidad() );
+        datosCita.setFecha(fecha);
+        datosCita.setIdPaciente(idPaciente);
+
+        listaCitas = clinicaService.filtrarCitas(datosCita);
+        rvDatosCitasAdapter.setNewSource(listaCitas);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -297,15 +298,6 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             // Toma los eventos de selección del toggle aquí

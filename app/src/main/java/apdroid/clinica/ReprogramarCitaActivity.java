@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -148,16 +149,35 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
 
     private void reprogramarCita(){
 
-        Intent intent= new Intent();
+        if(validarReprogramar()){
+            Intent intent= new Intent();
 
-        datosCita.setFecha( etFecha.getText().toString() );
-        datosCita.setHora((String) spHorarioReprog.getSelectedItem());
-        intent.putExtra(MainActivity.ARG_DATOS_CITA, datosCita);
+            datosCita.setFecha( etFecha.getText().toString() );
+            datosCita.setHora((String) spHorarioReprog.getSelectedItem());
+            intent.putExtra(MainActivity.ARG_DATOS_CITA, datosCita);
 
-        clinicaService.actualizarCita(datosCita);
+            clinicaService.actualizarCita(datosCita);
 
-        setResult(RESULT_OK, intent);
-        finish();
+            setResult(RESULT_OK, intent);
+            finish();
+
+        }
+    }
+
+    private boolean validarReprogramar(){
+        boolean resp = true;
+
+        if( "".equals(spHorarioReprog.getSelectedItem())  ){
+            Toast.makeText(getApplicationContext(), "Debe ingresar Horario !!!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if( "".equals(etFecha.getText().toString())  ){
+            Toast.makeText(getApplicationContext(), "Debe ingresar Fecha !!!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return resp;
     }
 
 
