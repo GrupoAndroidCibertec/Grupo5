@@ -66,11 +66,64 @@ public class NuevaCitaActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
+
+
+    //<editor-fold desc="Config Calendar">
+    private SimpleDateFormat formatoFecha;
+    private ImageButton btCalendar;
+    private TextView tvFecha;
+    Calendar calendario = Calendar.getInstance();
+
     private void configCalendar(){
 
+        tvFecha = (TextView) findViewById(R.id.etFecha);
+        btCalendar = (ImageButton) findViewById(R.id.btCal);
 
+        btCalendar.setOnClickListener(btCalendarOnClickListener);
+        tvFecha.setOnClickListener(tvFechaOnClickListener);
+
+        formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+    }
+
+    DatePickerDialog.OnDateSetListener dpFechaOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            calendario.set(Calendar.YEAR, year);
+            calendario.set(Calendar.MONTH, monthOfYear);
+            calendario.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateFecha();
+
+        }
+    };
+
+    View.OnClickListener tvFechaOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            setFecha();
+        }
+    };
+
+
+    View.OnClickListener btCalendarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            setFecha();
+
+        }
+    };
+
+    public void updateFecha() {
+        tvFecha.setText(formatoFecha.format(calendario.getTime()));
 
     }
+
+    public void setFecha() {
+        new DatePickerDialog(NuevaCitaActivity.this, dpFechaOnDateSetListener,
+                calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH),
+                calendario.get(Calendar.DAY_OF_MONTH)).show();
+    }
+    //</editor-fold>
 
     //<editor-fold desc="Config - USER">
     private TextView tvUser;
