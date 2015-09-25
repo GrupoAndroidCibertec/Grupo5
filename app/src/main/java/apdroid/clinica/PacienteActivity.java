@@ -20,7 +20,7 @@ public class PacienteActivity extends AppCompatActivity {
     String[] opIdioma = new String[]{"Español", "Ingles"};
     EditText edNombres , edApellidos , edDNI , edCorreo  ;
     Spinner spIdioma , spEstilo ;
-    TextView tvUser ;
+    TextView tvUser, tvNombres , tvApellidos , tvDni , tvCorreo ;
     ArrayAdapter<String> aaIdioma, aaEstilo;
     Button btActualizarDatos ;
 
@@ -57,7 +57,10 @@ public class PacienteActivity extends AppCompatActivity {
         edDNI.setText(paciente.getNum_dni());
         edCorreo.setText(paciente.getCorreo());
 
-
+        tvNombres = (TextView) findViewById(R.id.tvNombres) ;
+        tvApellidos = (TextView) findViewById(R.id.tvApellidos) ;
+        tvDni = (TextView) findViewById(R.id.tvDni) ;
+        tvCorreo = (TextView) findViewById(R.id.tvCorreo) ;
 
         tvUser.setText(nuser);
 
@@ -102,7 +105,25 @@ public class PacienteActivity extends AppCompatActivity {
     };
 
     private boolean validaCampos(){
-        return true;
+        boolean return_validacion = true;
+        if (edNombres.getText().toString().trim().length()== 0 ){
+            tvNombres.setText(R.string.lb_validacion_nombres);
+            return_validacion = false;
+        }
+        if (edApellidos.getText().toString().trim().length()== 0 ){
+            tvApellidos.setText(R.string.lb_validacion_apellidos);
+            return_validacion = false;
+        }
+        if (edDNI.getText().toString().trim().length()== 0  || edDNI.getText().toString().trim().length()< 8 ){
+            tvDni.setText(R.string.lb_validacion_dni);
+            return_validacion = false;
+        }
+        if (edCorreo.getText().toString().trim().length()== 0 ){
+            tvCorreo.setText(R.string.lb_validacion_correo);
+            return_validacion = false;
+        }
+
+        return return_validacion;
     }
 
 
