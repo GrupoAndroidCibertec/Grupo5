@@ -88,6 +88,12 @@ public class CitasDao {
         if(datosCita != null){
 
             whereQuery.append("where 1 = 1 ");
+
+            if( datosCita.getIdPaciente()!=null && datosCita.getIdPaciente() > 0 ){
+                whereQuery.append("and c.id_paciente = ? ");
+                params.add(String.valueOf(datosCita.getIdPaciente()));
+            }
+
             if( datosCita.getIdEspecialidad() != null && datosCita.getIdEspecialidad() != -1){
                 whereQuery.append("and d.id_especialidad = ? ");
                 params.add(String.valueOf(datosCita.getIdEspecialidad()));

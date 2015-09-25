@@ -40,4 +40,11 @@ public class Utiles {
         return resp;
     }
 
+    public static int obtenerValorSharedPreferenceInt(Activity activity, String keyValor){
+        int resp = -1;
+        SharedPreferences sharedPref = activity.getSharedPreferences(activity.getPackageName(), Context.MODE_PRIVATE);
+        resp = sharedPref.getInt(keyValor, -1);
+        return resp;
+    }
+
 }
