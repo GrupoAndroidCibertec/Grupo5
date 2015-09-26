@@ -364,24 +364,32 @@ public class NuevaCitaActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            Intent resultIntent=new Intent();
-            DatosCita data=new DatosCita();
+            if (spEspecialidad.getSelectedItemId()==0||tvFecha.getText().toString().trim().equals("")){
 
-            data.setEspecialidad(espSel);
-            data.setDoctor(docSel);
+                Toast.makeText(getApplicationContext(),"Por favor, llenar todos los campos para Reservar la cita", Toast.LENGTH_LONG).show();
+
+            }else {
+                Intent resultIntent=new Intent();
+                DatosCita data=new DatosCita();
+
+                data.setEspecialidad(espSel);
+                data.setDoctor(docSel);
 //            tvFecha.setText(formatoFecha.format(calendario.getTime()));
-            data.setFecha(tvFecha.getText().toString());
-            data.setDetalleConsulta("Detalle");
-            data.setEstado("Estado");
-            data.setHora(hora);
-            data.setIdCita(5);
-            data.setIdDoctor(3);
-            data.setIdEspecialidad(2);
-            data.setIdPaciente(1);
-            resultIntent.putExtra("data", data);
-            setResult(RESULT_OK, resultIntent);
-            Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
-            finish();
+                data.setFecha(tvFecha.getText().toString());
+                data.setDetalleConsulta("Detalle");
+                data.setEstado("Estado");
+                data.setHora(hora);
+                data.setIdCita(5);
+                data.setIdDoctor(3);
+                data.setIdEspecialidad(2);
+                data.setIdPaciente(1);
+                resultIntent.putExtra("data", data);
+                setResult(RESULT_OK, resultIntent);
+                Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+                finish();
+
+            }
+
 
 
 
