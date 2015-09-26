@@ -41,7 +41,7 @@ public class DoctorDao {
                     doctor.setNombre(cursor.isNull(cursor.getColumnIndex("nombre")) ? "" : cursor.getString(cursor.getColumnIndex("nombre")));
                     doctor.setApellido(cursor.isNull(cursor.getColumnIndex("apellido")) ? "" : cursor.getString(cursor.getColumnIndex("apellido")));
                     doctor.setIdespec(cursor.isNull(cursor.getColumnIndex("id_especialidad")) ? -1 : cursor.getInt(cursor.getColumnIndex("id_especialidad")));
-                    doctor.setHorario(cursor.isNull(cursor.getColumnIndex("horario")) ? "" : cursor.getString(cursor.getColumnIndex("horario")));
+                    //doctor.setHorario(cursor.isNull(cursor.getColumnIndex("horario")) ? "" : cursor.getString(cursor.getColumnIndex("horario")));
                     doctor.setIdlocal(cursor.isNull(cursor.getColumnIndex("idlocal")) ? -1 : cursor.getInt(cursor.getColumnIndex("idlocal")));
 
                     lstDoctor.add(doctor);
@@ -87,7 +87,7 @@ public class DoctorDao {
                     doctor.setNombre(cursor.isNull(cursor.getColumnIndex("nombre")) ? "" : cursor.getString(cursor.getColumnIndex("nombre")));
                     doctor.setApellido(cursor.isNull(cursor.getColumnIndex("apellido")) ? "" : cursor.getString(cursor.getColumnIndex("apellido")));
                     doctor.setIdespec(cursor.isNull(cursor.getColumnIndex("id_especialidad")) ? -1 : cursor.getInt(cursor.getColumnIndex("id_especialidad")));
-                    doctor.setHorario(cursor.isNull(cursor.getColumnIndex("horario")) ? "" : cursor.getString(cursor.getColumnIndex("horario")));
+                    //doctor.setHorario(cursor.isNull(cursor.getColumnIndex("horario")) ? "" : cursor.getString(cursor.getColumnIndex("horario")));
                     doctor.setIdlocal(cursor.isNull(cursor.getColumnIndex("idlocal")) ? -1 : cursor.getInt(cursor.getColumnIndex("idlocal")));
 
                     lstDoctor.add(doctor);

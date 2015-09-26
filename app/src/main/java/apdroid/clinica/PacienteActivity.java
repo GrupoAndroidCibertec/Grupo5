@@ -118,10 +118,10 @@ public class PacienteActivity extends AppCompatActivity {
             tvDni.setText(R.string.lb_validacion_dni);
             return_validacion = false;
         }
-        if (edCorreo.getText().toString().trim().length()== 0 ){
-            tvCorreo.setText(R.string.lb_validacion_correo);
-            return_validacion = false;
-        }
+//        if (edCorreo.getText().toString().trim().length()== 0 ){
+//            tvCorreo.setText(R.string.lb_validacion_correo);
+//            return_validacion = false;
+//        }
 
         return return_validacion;
     }
