@@ -412,7 +412,9 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
                Paciente paciente = data.getParcelableExtra("data");
                Idioma idioma= new Idioma();
                idioma.cambiaIdioma(paciente.getIdioma(), getBaseContext());
-
+               Intent refresh = new Intent(this, MainActivity.class);
+               startActivity(refresh);
+               this.finish(); //
 
            }
         }
