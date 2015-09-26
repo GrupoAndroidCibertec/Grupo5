@@ -9,7 +9,7 @@
 
 
 
-    <string name="title_activity_main">SISTEMA DE CITAS</string>
+    <string name="title_activity_main">APPOITMENT DATES</string>
 
     <string-array name="Tags">
         <item>New Date</item>
