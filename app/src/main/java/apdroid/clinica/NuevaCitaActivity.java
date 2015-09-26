@@ -366,7 +366,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
             if (spEspecialidad.getSelectedItemId()==0||tvFecha.getText().toString().trim().equals("")){
 
-                Toast.makeText(getApplicationContext(),"Por favor, llenar todos los campos para Reservar la cita", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Por favor, llenar todos los campos para Reservar la Cita", Toast.LENGTH_LONG).show();
 
             }else {
                 Intent resultIntent=new Intent();
@@ -385,7 +385,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
                 data.setIdPaciente(1);
                 resultIntent.putExtra("data", data);
                 setResult(RESULT_OK, resultIntent);
-                Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Muchas Gracias, Tu Reserva ha sido Programada", Toast.LENGTH_LONG).show();
                 finish();
 
             }

@@ -406,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
 
             }else if(resultCode==RESULT_CANCELED){
-                Toast.makeText(this,"Cancelado",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Tu Reserva de Cita se ha Cancelado",Toast.LENGTH_LONG).show();
             }
 
         }else if( requestCode == Constantes.REQUEST_DETALLECITA ) {
