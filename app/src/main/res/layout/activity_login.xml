@@ -46,7 +46,7 @@
 
             <EditText
                 android:id="@+id/etUser"
-                android:hint="usuario"
+                android:hint="@string/usuario"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
@@ -75,7 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
-                android:hint="constraseña"
+                android:hint="@string/pass"
                 android:password="true"
                 />
 

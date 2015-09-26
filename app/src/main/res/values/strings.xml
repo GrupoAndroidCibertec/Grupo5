@@ -55,6 +55,7 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="text_btn_reprogramar">REPROGRAMAR CITA</string>
     <string name="text_btn_anular">ANULAR CITA</string>
+    <string name="text_btn_reservar">RESERVAR CITA</string>
 
     <string name="lb_validacion_nombres">Ingrese sus Nombres</string>
     <string name="lb_validacion_apellidos">Ingrese sus Apellidos</string>

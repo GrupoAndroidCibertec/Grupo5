@@ -93,7 +93,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
         ArrayList<Especialidad> listEspec = clinicaService.listarEspecialidades();
         ArrayList<Especialidad> lstSpinner = new ArrayList<>(listEspec);
-        lstSpinner.add(0, new Especialidad(-1, "<Seleccione Especialidad>") );
+        lstSpinner.add(0, new Especialidad(-1, getResources().getString(R.string.text_selec_especialidad) ) );
         spEspecialidadAdapter = new SPEspecialidadAdapter(this, lstSpinner);
         spEspecialidad.setAdapter(spEspecialidadAdapter);
 
@@ -238,8 +238,9 @@ public class NuevaCitaActivity extends AppCompatActivity {
         String hora = spHorario.getSelectedItem().toString();
         Doctor doctor = (Doctor)spDoctor.getSelectedItem();
 
-        if( especialidad.getIdEspecialidad() == -1 || "".equals(tvFecha.getText().toString()) || "".equals(hora)
+        if( especialidad.getIdEspecialidad() == -1 || "".equals(tvFecha.getText().toString().trim()) || "".equals(hora)
                 || doctor==null){
+
             Toast.makeText(getApplicationContext(),"Debe ingresar todos los datos", Toast.LENGTH_LONG).show();
         }else{
             Intent resultIntent=new Intent();

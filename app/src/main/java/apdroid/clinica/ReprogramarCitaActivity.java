@@ -39,6 +39,7 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
     private TextView tvDoctor;
     private TextView etFecha;
     private ImageButton btFecha;
+    private TextView tv_nombre_local;
     private Spinner spHorarioReprog;
 
     private ArrayAdapter<String> aaHorario;
@@ -106,7 +107,7 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
 
         tvUser = (TextView)findViewById(R.id.tvUser);
         tvUser.setText(Utiles.obtenerValorSharedPreference(ReprogramarCitaActivity.this, Constantes.ARG_NOMBRE));
-
+        tv_nombre_local = (TextView) findViewById(R.id.tv_nombre_local);
     }
 
     private void configurarDatePicker(){
@@ -140,7 +141,7 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
             tvDoctor.setText(datosCita.getDoctor());
             etFecha.setText(datosCita.getFecha());
             spHorarioReprog.setSelection(aaHorario.getPosition(datosCita.getHora()));
-
+            tv_nombre_local.setText(datosCita.getLocal());
 
         }
 
@@ -196,7 +197,7 @@ public class ReprogramarCitaActivity extends AppCompatActivity {
             return false;
         }
 
-        if( "".equals(etFecha.getText().toString())  ){
+        if( "".equals(etFecha.getText().toString().toString())  ){
             Toast.makeText(getApplicationContext(), "Debe ingresar Fecha !!!", Toast.LENGTH_LONG).show();
             return false;
         }
