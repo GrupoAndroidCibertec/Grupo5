@@ -45,16 +45,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (user.equals("angelo")){
                     nUser=1;
-                    nya="Angelo Verastegui";
+                    nya="Angelo Verástegui";
                 }
                 if (user.equals("edinson")){
                     nUser=2;
-                    nya="Edinson EFG";
+                    nya="Edinson Vásquez";
 
                 }
                 if (user.equals("antonio")){
                     nUser=3;
-                    nya="Antonio ABC";
+                    nya="Antonio Merejildo";
                 }
 
 
