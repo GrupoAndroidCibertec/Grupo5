@@ -72,12 +72,12 @@ public class DoctorDao {
     }
 
 
-    public ArrayList<Doctor> listarDoctoresEsp(int esp) {
+    public ArrayList<Doctor> listarDoctoresEsp(Integer esp) {
         ArrayList<Doctor> lstDoctor = new ArrayList<>();
         Cursor cursor = null;
 
         try {
-            cursor = DB_Helper.getMyDataBase().query("Doctor", null, "id_especialidad", new String[]{String.valueOf(esp)}, null, null, "nombre");
+            cursor = DB_Helper.getMyDataBase().query("Doctor", null, "id_especialidad = ?", new String[]{String.valueOf(esp)}, null, null, "nombre ASC");
 
             if (cursor.moveToFirst()) {
                 do {
@@ -105,21 +105,5 @@ public class DoctorDao {
 
 
 
-
-//    public Cursor getDoctores(int selEspe) {
-//
-//        //Argumentos del WHERE
-//
-//        String[] args= {String.valueOf(selEspe)};
-//
-//        String selection="id_especialidad=?";
-//
-//        String[] campos ={"nombre","apellido"};
-//        String tabla="Doctor";
-//
-//        Cursor cursor = DB_Helper.getMyDataBase().query(tabla,campos,selection,args,null,null,null);
-//
-//        return cursor;
-//    }
 
 }

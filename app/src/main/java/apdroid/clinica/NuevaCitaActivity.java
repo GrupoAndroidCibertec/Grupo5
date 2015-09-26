@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -33,11 +34,32 @@ import apdroid.clinica.entidades.DatosCita;
 import apdroid.clinica.entidades.Doctor;
 import apdroid.clinica.entidades.Especialidad;
 import apdroid.clinica.service.ClinicaService;
+import apdroid.clinica.util.Constantes;
+import apdroid.clinica.util.Utiles;
 
 /**
  * Created by AngeloPaulo on 01/septiembre/2015.
  */
 public class NuevaCitaActivity extends AppCompatActivity {
+
+    private ClinicaService clinicaService;
+    private Spinner spHorario;
+    private ArrayAdapter<String> aaHorario;
+
+    private Spinner spEspecialidad;
+    private SPEspecialidadAdapter spEspecialidadAdapter;
+
+    //<editor-fold desc="Config Spinner Doctor">
+    private Spinner spDoctor;
+    private SPDoctorAdapter spDoctorAdapter;
+
+    //<editor-fold desc="Config Calendar">
+    private SimpleDateFormat formatoFecha;
+    private ImageButton btCalendar;
+    private TextView tvFecha;
+    Calendar calendario = Calendar.getInstance();
+
+    private DB_Manager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +76,20 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
 
 
-    //<editor-fold desc="Config Spinner - Especialidad">
-    private Spinner spEspecialidad;
-    private ClinicaService clinicaService;
-    private SPEspecialidadAdapter spEspecialidadAdapter;
-
     private void configSpEspecialidad(){
-
-        spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
         clinicaService = ClinicaService.getSingleton();
-        spEspecialidad.setOnItemSelectedListener(spEspOnItemSelectedListener);
+        spEspecialidad = (Spinner)findViewById(R.id.spEspecialidad);
+        spEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filtrarDoctores();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         ArrayList<Especialidad> listEspec = clinicaService.listarEspecialidades();
         ArrayList<Especialidad> lstSpinner = new ArrayList<>(listEspec);
@@ -74,216 +100,50 @@ public class NuevaCitaActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
-    //<editor-fold desc="Config Spinner Doctor">
-    private Spinner spDoctor;
-    //private ClinicaService clinicaService;
-    //
-    private SPDoctorAdapter spDoctorAdapter;
+    private void filtrarDoctores(){
+        Especialidad especialidad = (Especialidad)spEspecialidad.getSelectedItem();
+        ArrayList<Doctor> lstDoctores = null;
+        if( especialidad==null || especialidad.getIdEspecialidad()== -1 ){
+            lstDoctores = clinicaService.listarDoctores();
+        }else{
+            lstDoctores = clinicaService.listarDoctoresEsp((Integer)especialidad.getIdEspecialidad());
+        }
 
-    //private SimpleCursorAdapter adapter;
-    private Cursor cursor;
-    private DB_Manager manager;
+
+        spDoctorAdapter.setNewSource(lstDoctores);
+    }
+
 
 
     private void configSpDoctor(){
 
         spDoctor= (Spinner)findViewById(R.id.spDoctor);
-        spDoctor.setOnItemSelectedListener(spDocOnItemSelectedListener);
-
-
-
-
         ArrayList<Doctor> listDoc = clinicaService.listarDoctores();
-
-        ArrayList<Doctor> lstSpinnerDoc = new ArrayList<>(listDoc);
-
-        spDoctorAdapter= new SPDoctorAdapter(this,0,lstSpinnerDoc);
+        spDoctorAdapter= new SPDoctorAdapter(this,0,listDoc);
         spDoctor.setAdapter(spDoctorAdapter);
 
     }
     //</editor-fold>
 
-    //<editor-fold desc="Doc Seleccionado">
-    String docSel;
 
-    AdapterView.OnItemSelectedListener spDocOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (position){
-                case 0:
-                    docSel="Esperanza Mucha";
-                    break;
-                case 1:
-                    docSel="Aldo Cortez";
-                    break;
-                case 2:
-                    docSel="Pedro Villa";
-                    break;
-                case 3:
-                    docSel="Ruth Mistral";
-                    break;
-                case 4:
-                    docSel="Aria Vega";
-                    break;
-                case 5:
-                    docSel="Minerva Rosales";
-                    break;
-                case 6:
-                    docSel="Laura Yamashita";
-                    break;
-                case 7:
-                    docSel="Marla Rivas";
-                    break;
-                case 8:
-                    docSel="Margarita Rojas";
-                    break;
-                case 9:
-                    docSel="Rita Bernaola";
-                    break;
-
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
-    //</editor-fold>
-
-    //<editor-fold ref">
-    //    private void activeSpinner(String selection) {
-//
-//        //Creando Adaptador para ArtistSpinner con el id del género
-//        spDoctorAdapter = new SimpleCursorAdapter(this,
-//                android.R.layout.simple_spinner_item,
-//                dataSource.getArtistsByGenre(genreSelection),
-//                new String[]{DataBaseScript.ArtistColumns.NAME_ARTIST},
-//                new int[]{android.R.id.text1},
-//                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-//
-//        //Seteando el adaptador creado
-//        artistSpinner.setAdapter(artistSpinnerAdapter);
-//
-//        //Relacionado la escucha
-//        artistSpinner.setOnItemSelectedListener(this);
-//
-//    }
-    //</editor-fold>
-
-    //<editor-fold desc=" Select - Especialidad">
-
-    String espSel;
-
-    AdapterView.OnItemSelectedListener spEspOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (position){
-                case 1:
-                    espSel="Cardiologia";
-                    break;
-                case 2:
-                    espSel="Odontologia";
-                    break;
-                case 3:
-                    espSel="Medicina General";
-                    break;
-                case 4:
-                    espSel="Pediatría";
-                    break;
-                case 5:
-                    espSel="Geriatría";
-                    break;
-                case 6:
-                    espSel="Gastroenterología";
-                    break;
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
-    //</editor-fold>
-
-    //<editor-fold desc="Config Spinner - Horario">
-
-    private Spinner spHorario;
-    //private ClinicaService clinicaService;
-    private SPHorarioAdapter spHorarioAdapter;
 
     private void configSpHorario(){
 
         spHorario= (Spinner)findViewById(R.id.spHorario);
-        spHorario.setOnItemSelectedListener(spHoraOnItemSelectedListener);
-        ArrayList<Doctor> listDoc = clinicaService.listarDoctores();
+        //spHorario.setOnItemSelectedListener(spHoraOnItemSelectedListener);
+        //ArrayList<Doctor> listDoc = clinicaService.listarDoctores();
 
-        ArrayList<Doctor> lstSpinnerDoc = new ArrayList<>(listDoc);
+        //ArrayList<Doctor> lstSpinnerDoc = new ArrayList<>(listDoc);
+        String []opHorario = getResources().getStringArray(R.array.ListaHorarios);
+        aaHorario = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, opHorario);
 
-        spHorarioAdapter= new SPHorarioAdapter(this,0,lstSpinnerDoc);
-        spHorario.setAdapter(spHorarioAdapter);
+        //spHorarioAdapter= new SPHorarioAdapter(this, 0, lstHorario);
+        spHorario.setAdapter(aaHorario);
 
     }
     //</editor-fold>
 
-    //<editor-fold desc="Hora Selected">
-    private String hora;
 
-    AdapterView.OnItemSelectedListener spHoraOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            switch (position) {
-                case 0:
-                    hora = "08:00-09:00";
-                    break;
-                case 1:
-                    hora = "09:00-10:00";
-                    break;
-                case 2:
-                    hora = "10:00-11:00";
-                    break;
-                case 3:
-                    hora = "11:00-12:00";
-                    break;
-                case 4:
-                    hora = "12:00-13:00";
-                    break;
-                case 5:
-                    hora = "13:00-14:00";
-                    break;
-                case 6:
-                    hora = "14:00-15:00";
-                    break;
-                case 7:
-                    hora = "15:00-16:00";
-                    break;
-                case 8:
-                    hora = "16:00-17:00";
-                    break;
-                case 9:
-                    hora = "17:00-18:00";
-                    break;
-            }
-
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
-    //</editor-fold>
-
-    //<editor-fold desc="Config Calendar">
-    private SimpleDateFormat formatoFecha;
-    private ImageButton btCalendar;
-    private TextView tvFecha;
-    Calendar calendario = Calendar.getInstance();
 
     private void configCalendar(){
 
@@ -293,7 +153,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
         btCalendar.setOnClickListener(btCalendarOnClickListener);
         tvFecha.setOnClickListener(tvFechaOnClickListener);
 
-        formatoFecha = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+        formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     }
 
     DatePickerDialog.OnDateSetListener dpFechaOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -330,9 +190,13 @@ public class NuevaCitaActivity extends AppCompatActivity {
     }
 
     public void setFecha() {
-        new DatePickerDialog(NuevaCitaActivity.this, dpFechaOnDateSetListener,
+        DatePickerDialog datePickerDialog =  new DatePickerDialog(NuevaCitaActivity.this, dpFechaOnDateSetListener,
                 calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH),
-                calendario.get(Calendar.DAY_OF_MONTH)).show();
+                calendario.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setCalendarViewShown(false);
+        datePickerDialog.setTitle("Fecha de Cita");
+        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis()+86400000);//86400000 = 24 horas
+        datePickerDialog.show();
     }
     //</editor-fold>
 
@@ -363,57 +227,49 @@ public class NuevaCitaActivity extends AppCompatActivity {
     View.OnClickListener btReservCitaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            if (spEspecialidad.getSelectedItemId()==0||tvFecha.getText().toString().trim().equals("")){
-
-                Toast.makeText(getApplicationContext(),"Por favor, llenar todos los campos para Reservar la Cita", Toast.LENGTH_LONG).show();
-
-            }else {
-                Intent resultIntent=new Intent();
-                DatosCita data=new DatosCita();
-
-                data.setEspecialidad(espSel);
-                data.setDoctor(docSel);
-//            tvFecha.setText(formatoFecha.format(calendario.getTime()));
-                data.setFecha(tvFecha.getText().toString());
-                data.setDetalleConsulta("Detalle");
-                data.setEstado("Estado");
-                data.setHora(hora);
-                data.setIdCita(5);
-                data.setIdDoctor(3);
-                data.setIdEspecialidad(2);
-                data.setIdPaciente(1);
-                resultIntent.putExtra("data", data);
-                setResult(RESULT_OK, resultIntent);
-                Toast.makeText(getApplicationContext(),"Muchas Gracias, Tu Reserva ha sido Programada", Toast.LENGTH_LONG).show();
-                finish();
-
-            }
-
-
-
-
-            //Intent intent= new Intent();
-            //datosCita.setFecha(tvFecha.getText().toString());
-            //datosCita.setHora((String) spHorario.getSelectedItem());
-            //datosCita.setEspecialidad((String) spEspecialidad.getSelectedItem());
-            //datosCita.setDoctor((String) spDoctor.getSelectedItem());
-
-            //intent.putExtra(MainActivity.ARG_DATOS_CITA, datosCita);
-
-            //clinicaService.nuevaCita(datosCita);
-
-//            setResult(RESULT_OK, intent);
-//            finish();
-
-
-
-            //Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
-
-
+            grabarCita();
         }
     };
     //</editor-fold>
+
+
+    private void grabarCita(){
+        Especialidad especialidad = (Especialidad)spEspecialidad.getSelectedItem();
+        String hora = spHorario.getSelectedItem().toString();
+        Doctor doctor = (Doctor)spDoctor.getSelectedItem();
+
+        if( especialidad.getIdEspecialidad() == -1 || "".equals(tvFecha.getText().toString()) || "".equals(hora)
+                || doctor==null){
+            Toast.makeText(getApplicationContext(),"Debe ingresar todos los datos", Toast.LENGTH_LONG).show();
+        }else{
+            Intent resultIntent=new Intent();
+            DatosCita data=new DatosCita();
+
+
+
+            int idPaciente =  Utiles.obtenerValorSharedPreferenceInt(this, Constantes.ARG_NUSER) ;
+
+            //data.setDoctor(docSel);
+            data.setFecha(tvFecha.getText().toString());
+            //data.setDetalleConsulta("");
+            data.setHora(hora);
+            data.setIdDoctor(doctor.getIddoc());
+            data.setIdEspecialidad(especialidad.getIdEspecialidad());
+            data.setIdPaciente(idPaciente);
+
+            clinicaService.nuevaCita(data);
+
+            resultIntent.putExtra("data", data);
+            setResult(RESULT_OK, resultIntent);
+            Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+            finish();
+
+        }
+
+
+
+    }
+
 
 
 }

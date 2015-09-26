@@ -387,23 +387,8 @@ public class MainActivity extends AppCompatActivity implements RVDatosCitasAdapt
 
         if( requestCode == Constantes.REQUEST_NUEVACITA ){
             if( resultCode == RESULT_OK ){
-                DatosCita dataOAR=data.getParcelableExtra("data");
-//                Toast.makeText(this,dataOAR.getEspecialidad().toString(),Toast.LENGTH_LONG).show();
-//                Toast.makeText(this,dataOAR.getFecha().toString(),Toast.LENGTH_LONG).show();
-//                Toast.makeText(this,dataOAR.getDoctor().toString(),Toast.LENGTH_LONG).show();
-//                Toast.makeText(this,dataOAR.getHora().toString(),Toast.LENGTH_LONG).show();
 
-                int position = data.getIntExtra(ARG_POSITION, -1)+1;
-                //
-                    DatosCita nuevo = rvDatosCitasAdapter.getItem(position);
-                    nuevo.setEstado("PROGRAMADO");
-                    nuevo.setEspecialidad(dataOAR.getEspecialidad());
-                    nuevo.setDoctor(dataOAR.getDoctor());
-                    nuevo.setFecha(dataOAR.getFecha());
-                    nuevo.setHora(dataOAR.getHora());
-                    rvDatosCitasAdapter.notifyDataSetChanged();
-
-
+                filtrarCitas();
 
             }else if(resultCode==RESULT_CANCELED){
                 Toast.makeText(this,"Tu Reserva de Cita se ha Cancelado",Toast.LENGTH_LONG).show();

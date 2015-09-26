@@ -57,12 +57,12 @@ public class ClinicaService {
         return lstDoctorCache;
     }
 
-//    public ArrayList<Doctor> listarDoctoresEsp(String esp){
-//        ArrayList<Doctor> lstDoctorCache = null;
-//        lstDoctorCache = doctorDao.listarDoctoresEsp(esp);
-//
-//        return lstDoctorCache;
-//    }
+    public ArrayList<Doctor> listarDoctoresEsp(Integer idEspecialidad){
+        ArrayList<Doctor> lstDoctorCache = null;
+        lstDoctorCache = doctorDao.listarDoctoresEsp(idEspecialidad);
+
+        return lstDoctorCache;
+    }
 
 
 
@@ -96,6 +96,8 @@ public class ClinicaService {
     }
 
     public void nuevaCita(DatosCita datosCita) {
+        datosCita.setDetalleConsulta("");
+        datosCita.setEstado("PROGRAMADO");
         citasDao.nueaCita(datosCita);
 
     }

@@ -39,6 +39,7 @@ public class DatosCita implements Parcelable {
 
 
     public DatosCita() {
+        idCita = -1;
     }
 
     public DatosCita(String nombre, String especialidad, String doctor, String hora, String fecha, String detalleconsulta, String estado, String local) {
