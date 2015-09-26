@@ -65,4 +65,13 @@
     <string name="text_selec_especialidad">&lt;Seleccione Especialidad&gt;</string>
     <string name="text_titulo_dp_fecha">Fecha de Cita</string>
 
+    <string name="text_msg_gracias">Gracias...</string>
+    <string name="text_msg_ingresardatos">Debe ingresar todos los datos</string>
+    <string name="text_msg_ingresarfecha">Debe ingresar Fecha !!!</string>
+    <string name="text_msg_ingresarhora">Debe ingresar Horario !!!</string>
+    <string name="text_msg_seguroanular">¿Esta usted seguro de anular la cita?</string>
+    <string name="text_msg_confirmar">Confirmar</string>
+    <string name="text_msg_aceptar">Aceptar</string>
+    <string name="text_msg_cancelar">Cancelar</string>
+
 </resources>

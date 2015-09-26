@@ -194,7 +194,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
                 calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH),
                 calendario.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setCalendarViewShown(false);
-        datePickerDialog.setTitle("Fecha de Cita");
+        datePickerDialog.setTitle(getResources().getString(R.string.text_fecha) );
         datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis()+86400000);//86400000 = 24 horas
         datePickerDialog.show();
     }
@@ -241,7 +241,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
         if( especialidad.getIdEspecialidad() == -1 || "".equals(tvFecha.getText().toString().trim()) || "".equals(hora)
                 || doctor==null){
 
-            Toast.makeText(getApplicationContext(),"Debe ingresar todos los datos", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.text_msg_ingresardatos), Toast.LENGTH_LONG).show();
         }else{
             Intent resultIntent=new Intent();
             DatosCita data=new DatosCita();
@@ -262,7 +262,7 @@ public class NuevaCitaActivity extends AppCompatActivity {
 
             resultIntent.putExtra("data", data);
             setResult(RESULT_OK, resultIntent);
-            Toast.makeText(getApplicationContext(),"Muchas Gracias", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.text_msg_gracias), Toast.LENGTH_LONG).show();
             finish();
 
         }

@@ -65,4 +65,13 @@
     <string name="text_selec_especialidad">&lt;Select Specility&gt;</string>
     <string name="text_titulo_dp_fecha">Appointment Date</string>
 
+    <string name="text_msg_gracias">Thanks...</string>
+    <string name="text_msg_ingresardatos">You must fill all fields</string>
+    <string name="text_msg_ingresarfecha">You must pick a date !!!</string>
+    <string name="text_msg_ingresarhora">You must select an hour !!!</string>
+    <string name="text_msg_seguroanular">¿Are you sure to cancel this date?</string>
+    <string name="text_msg_confirmar">Confirm</string>
+    <string name="text_msg_aceptar">Accept</string>
+    <string name="text_msg_cancelar">Cancel</string>
+
 </resources>

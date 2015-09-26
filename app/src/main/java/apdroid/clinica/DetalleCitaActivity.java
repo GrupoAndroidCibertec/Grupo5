@@ -90,7 +90,7 @@ public class DetalleCitaActivity extends AppCompatActivity {
     View.OnClickListener btanularcitaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new AlertDialog.Builder(DetalleCitaActivity.this).setTitle("Confirmar").setMessage("¿Esta usted seguro de anular la cita?").setNegativeButton("Cancelar", alertAcceptCancelCancelOnClickListener).setPositiveButton("Aceptar", alertAcceptCancelAcceptOnClickListener).setCancelable(false).show();
+            new AlertDialog.Builder(DetalleCitaActivity.this).setTitle(getResources().getString(R.string.text_msg_confirmar)).setMessage(getResources().getString(R.string.text_msg_seguroanular)).setNegativeButton(getResources().getString(R.string.text_msg_cancelar), alertAcceptCancelCancelOnClickListener).setPositiveButton(getResources().getString(R.string.text_msg_aceptar), alertAcceptCancelAcceptOnClickListener).setCancelable(false).show();
 
         }
     };
